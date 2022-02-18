@@ -1,0 +1,57 @@
+:root {
+  --primary: #011627;
+  --secondary: #fdfffc;
+  --ternary: #2ec4b6;
+}
+body,
+html {
+  padding: 0;
+  margin: 0;
+}
+
+.colorPrimaryBackground {
+  background: var(--primary);
+}
+.colorSecondaryBackground {
+  background: var(--secondary);
+}
+.colorTernaryBackground {
+  background: var(--ternary);
+}
+.colorPrimary {
+  color: var(--primary);
+}
+.colorSecondary {
+  color: var(--secondary);
+}
+.colorTernary {
+  color: var(--ternary);
+}
+.colorPrimaryBorder {
+  border: 1px solid var(--primary);
+}
+.colorSecondaryBorder {
+  border: 1px solid var(--secondary);
+}
+.colorTernaryBorder {
+  border: 1px solid var(--ternary);
+}
+.formoptionsactive{
+    color: var(--ternary);
+    text-decoration: underline;
+}
+button {
+  color: var(--secondary);
+  background: var(--primary);
+  width: 140px;
+  box-sizing: border-box;
+  padding: 5px;
+  font-size: 15px;
+  border: 1px var(--secondary) solid;
+  border-radius: 20px;
+}
+/*
+Primary : 011627
+Secondary : FDFFFC
+Ternary : 2EC4B6
+*/
