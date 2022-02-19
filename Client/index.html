@@ -40,16 +40,24 @@
                             <i class="fa-regular fa-square-plus fa-2x"></i>
                         </div>
                     </div>
-                    <div class="flex flex-col h-full w-full overflow-auto ">
-                        <div class="flex w-full flex-row justify-between p-2">
-                            <div>
-                                <p>Question 1</p>
-                            </div>
-                            <div>
-                                <i class="fa-solid fa-xmark fa-xl mr-2"></i>
-                                <i class="fa-solid fa-copy  fa-xl"></i>
+                    <div class="flex flex-col h-full w-full overflow-auto p-2">
+                        <div class="flex flex-row w-full h-max overflow-hidden">
+                            <div class=" flex flex-row w-full max-h-32">
+                                <div class="divpreview h-60 w-72 colorSecondaryBackground colorPrimary rounded scale-50 ">
+                                    <h1>Hello World</h1>
+                                </div>
+
+                                <div class="h-full flex flex-col justify-around">
+                                    <div>
+                                        <i class="fa-solid fa-xmark fa-xl"></i>
+                                    </div>
+                                    <div>
+                                        <i class="fa-solid fa-copy  fa-xl"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                     <div class="flex">
 
@@ -61,8 +69,8 @@
             </div>
             <div
                 class="flex h-full basis-3/5 colorTernaryBorder colorPrimaryBackground colorSecondary justify-center items-center">
-                <div class="h-5/6 w-5/6 colorSecondaryBackground rounded">
-
+                <div class="h-5/6 w-5/6 colorSecondaryBackground colorPrimary rounded">
+                    <h1>Hello World</h1>
                 </div>
             </div>
             <div class="flex flex-col h-full basis-1/5 colorTernaryBorder colorPrimaryBackground colorSecondary">
@@ -78,13 +86,13 @@
                         </a>
                     </div> -->
                 </div>
-                <div class="flex colorTernaryBorder p-2">
+                <div class="flex flex-col colorTernaryBorder overflow-auto p-2">
                     <div class="flex flex-col items-start">
                         <div>
                             <label class="p-2">Type</label>
                         </div>
-                        <div>
-                            <select class="w-60 colorPrimaryBackground colorTernaryBorder colorSecondary m-2 rounded">
+                        <div class="m-2">
+                            <select class="w-60 colorPrimaryBackground colorTernaryBorder colorSecondary rounded">
                                 <option>Text</option>
                                 <option>Paragraph</option>
                                 <option>Check Box</option>
@@ -93,6 +101,30 @@
                                 <option>Website</option>
                                 <option>File</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-start">
+                        <div>
+                            <label class="p-2">Questions</label>
+                        </div>
+                        <div class="m-2">
+                           <textarea class="w-60 colorPrimaryBackground colorTernaryBorder colorSecondary rounded p-1"  placeholder="Question"></textarea>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-start">
+                        <div>
+                            <label class="p-2" >Options</label>
+                        </div>
+                        <div class="m-2 flex flex-row">
+                           <input class="p-1 colorPrimaryBackground colorTernaryBorder colorSecondary" placeholder="Option #1">
+                           <div class="flex flex-row p-1">
+                           <div>
+                            <i class="fa-solid fa-square-plus fa-2xl fa-fw"></i>
+                           </div>
+                           <div>
+                            <i class="fa-solid fa-square-minus fa-2xl fa-fw"></i>
+                           </div>
+                        </div>
                         </div>
                     </div>
                 </div>

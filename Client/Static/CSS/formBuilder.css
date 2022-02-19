@@ -50,6 +50,9 @@ button {
   border: 1px var(--secondary) solid;
   border-radius: 20px;
 }
+.divpreview{
+  transform-origin: 50% 3%;
+}
 /*
 Primary : 011627
 Secondary : FDFFFC
