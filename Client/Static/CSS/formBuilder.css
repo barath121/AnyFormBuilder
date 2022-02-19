@@ -3,10 +3,12 @@
   --secondary: #fdfffc;
   --ternary: #2ec4b6;
 }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 body,
 html {
   padding: 0;
-  margin: 0;
+  margin: 0;  
+  font-family: 'Poppins', sans-serif;
 }
 
 .colorPrimaryBackground {
@@ -36,11 +38,14 @@ html {
 .colorTernaryBorder {
   border: 1px solid var(--ternary);
 }
+.colorTernaryBorderBottom {
+  border-bottom: 1px solid var(--ternary);
+}
 .formoptionsactive{
     color: var(--ternary);
     text-decoration: underline;
 }
-button {
+.navbuttons {
   color: var(--secondary);
   background: var(--primary);
   width: 140px;
@@ -48,10 +53,40 @@ button {
   padding: 5px;
   font-size: 15px;
   border: 1px var(--secondary) solid;
-  border-radius: 20px;
+  border-radius: 5px;
 }
 .divpreview{
   transform-origin: 50% 3%;
+}
+
+.switchlabel {
+	width: 50px;
+	height: 25px;
+}
+
+.switchlabel:after {
+	content: '';
+	position: absolute;
+	top: 2.5px;
+	left: 2.5px;
+	width: 19px;
+	height: 19px;
+	background: #fff;
+	border-radius: 19px;
+	transition: 0.3s;
+}
+
+.switchcheckbox:checked + .switchlabel {
+	background: #bada55;
+}
+
+.switchcheckbox:checked + .switchlabel:after {
+	left: calc(100% - 5px);
+	transform: translateX(-100%);
+}
+
+.switchlabel:active:after {
+	width: 13px;
 }
 /*
 Primary : 011627
