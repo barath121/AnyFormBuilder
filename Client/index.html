@@ -18,34 +18,91 @@
             <button class="navbuttons rounded mr-2">Publish</button>
             <button class="navbuttons rounded mr-2">Embed</button>
         </div>
-        <div class="flex flex-row h-full">
-            <div class="flex border basis-1/12">
+        <div class="flex flex-row h-full ">
+            <div class="flex border">
                 <div class="flex flex-col">
-                    <div class="flex text-center justify-between p-3 borderBottom">
+                    <div class="flex text-center justify-between p-3 borderBottom ">
                         <h1>Questions</h1>
                         <i class="fa-regular fa-square-plus fa-2x"></i>
                     </div>
-                    <div class="flex flex-col overflow-auto">
-                        <div class="flex flex-row borderBottom">
-                            <div class=" flex flex-row max-h-32">
+                    <div class="flex flex-col overflow-auto colorWhite">
+                        <a href="#">
+                        <div class="flex flex-row borderBottom ">
+                            <div class=" flex flex-row max-h-32 max-w-fit my-2">
                                 1.
-                                <div class="scale-50 divpreview ">
+                                <div class="divpreview ">
                                     <div class="h-60 w-72 rounded questionpagepreview">
-                                        <div class="flex flex-col rounded justify-center items-center">
-                                            <h1>Hello World</h1>
+                                        <div class="flex flex-col h-full rounded justify-center items-center">
+                                            <h1 class="">What is the question?</h1>
+                                            <input class="w-3/5 questionInput" disabled>   
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        </a>    
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col justify-center items-center borderTop p-5 h-full w-full basis-11/12">
-                <div class="flex questionpage rounded justify-center items-center">
-                    <h1>Hello World</h1>
+            <div class=" overflow-auto h-full borderTop colorWhite basis-11/12 ">
+                <div class="flex flex-col questionpage rounded justify-center items-center mt-10 m-auto">
+                    <h1 class="text-3xl">What is the question?</h1>
+                    <input disabled class="questionInput ">
                 </div>
-
+                <div class="flex flex-col questionpage rounded justify-center items-center mt-10 m-auto">
+                    <h1 class="text-3xl">What is the question?</h1>
+                    <textarea class="questionTextinput rounded resize-none"></textarea>
+                </div>
+                <div class="flex flex-col questionpage rounded justify-center items-center mt-10 m-auto">
+                    <h1 class="text-3xl">Select Multiple Options?</h1>
+                    <div class="flex flex-col">
+                    <div>
+                        <input disabled id="cb1" type="checkbox">
+                        <label for="cb1">Option 1</label>
+                    </div>
+                    <div>
+                        <input disabled id="cb2" type="checkbox">
+                        <label for="cb2">Option 2</label>
+                    </div>
+                    <div>
+                        <input disabled id="cb3" type="checkbox" >
+                        <label for="cb3">Option 3</label>
+                    </div>
+                    <div>
+                        <input disabled id="cb4" type="checkbox">
+                        <label for="cb4">Option 4</label>
+                    </div>
+                    </div>
+                </div>
+                <div class="flex flex-col questionpage rounded justify-center items-center mt-10 m-auto">
+                    <h1 class="text-3xl">Select One Option?</h1>
+                    <div class="flex flex-col">
+                    <div>
+                        <input disabled id="rb1" type="radio" name="radiogrp">
+                        <label for="rb1">Option 1</label>
+                    </div>
+                    <div>
+                        <input disabled id="rb2" type="radio" name="radiogrp">
+                        <label for="rb2">Option 2</label>
+                    </div>
+                    <div>
+                        <input disabled id="rb3" type="radio" name="radiogrp">
+                        <label for="rb3">Option 3</label>
+                    </div>
+                    <div>
+                        <input disabled id="rb4" type="radio" name="radiogrp">
+                        <label for="rb4">Option 4</label>
+                    </div>
+                    </div>
+                </div>
+                <div class="flex flex-col questionpage rounded justify-center items-center mt-10 m-auto">
+                    <h1 class="text-3xl">What is the Date?</h1>
+                    <input disabled id="date" type="date">
+                </div>
+                <div class="flex flex-col questionpage rounded justify-center items-center mt-10 m-auto">
+                    <h1 class="text-3xl">What is the question?</h1>
+                    <input disabled id="file" class="fileinput rounded" type="file">
+                </div>
             </div>
             <div class="flex flex-col border h-full">
                 <div class="justify-evenly flex p-1 borderBottom">
@@ -55,6 +112,7 @@
                     <div class="flex flex-col items-start p-2 borderBottom">
                         <label>Type</label>
                         <select class="w-full rounded p-1">
+                            <option>Message</option>
                             <option>Text</option>
                             <option>Paragraph</option>
                             <option>Check Box</option>
@@ -70,7 +128,7 @@
                         <label>Choices</label>
                         <textarea class="w-full rounded p-1 resize-none" placeholder="Add Choices One Per Line"></textarea>
                     </div>
-                    <div class="flex flex-row p-2 justify-between">
+                    <div class="flex flex-row p-2 justify-between borderBottom">
                         <label for="">Required</label>
                         <input type="checkbox" id="requiredswitch" class="switchcheckbox h-0 w-0 invisible" /><label
                             for="requiredswitch"
@@ -83,7 +141,8 @@
                                 class="switchcheckbox h-0 w-0 invisible" /><label for="verificationswitch"
                                 class="switchlabel cursor-pointer block rounded-full bg-rose-400 relative"></label>
                         </div>
-                        <select class="w-full rounded p-2 mb-1 hidden">
+                        <div class="flex flex-col justify-between">
+                        <select class="w-full rounded p-1 mb-1">
                             <option>None</option>
                             <option>Phone Number</option>
                             <option>Email ID</option>
@@ -91,7 +150,8 @@
                             <option>Regex</option>
                         </select>
                         <label for="" class="mb-2 hidden">Regex Expression</label>
-                        <input class="w-full rounded p-1 hidden" placeholder="Regex Expression">
+                        <input class="w-full rounded p-1" placeholder="Regex Expression">
+                    </div>
                     </div>
                 </div>
             </div>
