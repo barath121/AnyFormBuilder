@@ -13,49 +13,48 @@
 
 <body>
     <div class="flex flex-col h-screen">
-        <div class="flex justify-end basis-1/12 h-full colorPrimaryBackground colorSecondary p-4">
-            <button class="navbuttons mr-2">Preview</button>
-            <button class="navbuttons mr-2">Publish</button>
-            <button class="navbuttons mr-2">Embed</button>
+        <div class="flex justify-end h-8 m-2">
+            <button class="navbuttons rounded mr-2">Preview</button>
+            <button class="navbuttons rounded mr-2">Publish</button>
+            <button class="navbuttons rounded mr-2">Embed</button>
         </div>
-        <div class="flex h-full flex-row basis-11/12">
-            <div class="flex h-full basis-1/5">
-                <div class="flex flex-col w-full colorPrimaryBackground colorSecondary colorTernaryBorder">
-                    <div class="flex text-center justify-between p-3 ">
+        <div class="flex flex-row h-full">
+            <div class="flex border basis-1/12">
+                <div class="flex flex-col">
+                    <div class="flex text-center justify-between p-3 borderBottom">
                         <h1>Questions</h1>
                         <i class="fa-regular fa-square-plus fa-2x"></i>
                     </div>
-                    <div class="flex flex-col h-full w-full overflow-auto p-2">
-                        <div class="flex flex-row w-full h-max overflow-hidden">
-                            <div class=" flex flex-row w-full max-h-32">
-                                <div class="scale-50 divpreview">
-                                    <div class="h-60 w-72 colorSecondaryBackground colorPrimary rounded">
-                                        <h1>Hello World</h1>
+                    <div class="flex flex-col overflow-auto">
+                        <div class="flex flex-row borderBottom">
+                            <div class=" flex flex-row max-h-32">
+                                1.
+                                <div class="scale-50 divpreview ">
+                                    <div class="h-60 w-72 rounded questionpagepreview">
+                                        <div class="flex flex-col rounded justify-center items-center">
+                                            <h1>Hello World</h1>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="h-full flex flex-col justify-around">
-                                    <i class="fa-solid fa-xmark fa-xl"></i>
-                                    <i class="fa-solid fa-copy fa-xl"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div
-                class="flex h-full basis-3/5 colorTernaryBorder colorPrimaryBackground colorSecondary justify-center items-center">
-                <div class="h-5/6 w-5/6 colorSecondaryBackground colorPrimary rounded">
+            <div class="flex flex-col justify-center items-center borderTop p-5 h-full w-full basis-11/12">
+                <div class="flex questionpage rounded justify-center items-center">
                     <h1>Hello World</h1>
                 </div>
+
             </div>
-            <div class="flex flex-col h-full basis-1/5 colorTernaryBorder colorPrimaryBackground colorSecondary">
-                <div class="h-max justify-evenly flex w-full colorTernaryBorderBottom p-1">
+            <div class="flex flex-col border h-full">
+                <div class="justify-evenly flex p-1 borderBottom">
                     <h1>Options</h1>
                 </div>
-                <div class="flex flex-col overflow-auto">
-                    <div class="flex flex-col items-start p-2 colorTernaryBorderBottom">
+                <div class="flex flex-col overflow-auto ">
+                    <div class="flex flex-col items-start p-2 borderBottom">
                         <label>Type</label>
-                        <select class="w-full colorPrimaryBackground colorTernaryBorder colorSecondary rounded p-1">
+                        <select class="w-full rounded p-1">
                             <option>Text</option>
                             <option>Paragraph</option>
                             <option>Check Box</option>
@@ -63,30 +62,28 @@
                             <option>File</option>
                         </select>
                     </div>
-                    <div class="flex flex-col p-2 colorTernaryBorderBottom">
-                        <label>Questions</label>
-                        <textarea class="w-full colorPrimaryBackground colorTernaryBorder colorSecondary rounded p-1"
-                            placeholder="Question"></textarea>
+                    <div class="flex flex-col p-2 borderBottom">
+                        <label>Question</label>
+                        <textarea class="w-full rounded p-1 resize-none" placeholder="Question"></textarea>
                     </div>
-                    <div class="flex flex-col p-2 colorTernaryBorderBottom">
-                            <label>Options</label>
-                        <div class="pb-1">
-                            <input class="colorPrimaryBackground colorTernaryBorder colorSecondary rounded p-1"
-                                placeholder="Option #1">
-                            <i class="fa-solid fa-square-minus fa-2xl fa-fw"></i>
-                        </div>
-                            <a class="cursor-pointer text-xs underline" onclick="">Add New Option</a>
+                    <div class="flex flex-col p-2 borderBottom">
+                        <label>Choices</label>
+                        <textarea class="w-full rounded p-1 resize-none" placeholder="Add Choices One Per Line"></textarea>
                     </div>
-                    <div class="flex flex-row p-2 colorTernaryBorderBottom justify-between">
+                    <div class="flex flex-row p-2 justify-between">
                         <label for="">Required</label>
-                        <input type="checkbox" id="requiredswitch" class="switchcheckbox h-0 w-0 invisible" /><label for="requiredswitch" class="switchlabel cursor-pointer block rounded-full bg-rose-400 relative"></label>
+                        <input type="checkbox" id="requiredswitch" class="switchcheckbox h-0 w-0 invisible" /><label
+                            for="requiredswitch"
+                            class="switchlabel cursor-pointer block rounded-full bg-rose-400 relative"></label>
                     </div>
-                    <div class="p-2 colorTernaryBorderBottom">
-                       <div class="flex flex-row justify-between mb-2">
-                        <label for="">Verification</label>
-                        <input type="checkbox" id="verificationswitch" class="switchcheckbox h-0 w-0 invisible" /><label for="verificationswitch" class="switchlabel cursor-pointer block rounded-full bg-rose-400 relative"></label>
-                       </div>
-                        <select class="w-full colorPrimaryBackground colorTernaryBorder colorSecondary rounded p-2 mb-1 hidden">
+                    <div class="p-2 borderBottom">
+                        <div class="flex flex-row justify-between mb-2">
+                            <label for="">Verification</label>
+                            <input type="checkbox" id="verificationswitch"
+                                class="switchcheckbox h-0 w-0 invisible" /><label for="verificationswitch"
+                                class="switchlabel cursor-pointer block rounded-full bg-rose-400 relative"></label>
+                        </div>
+                        <select class="w-full rounded p-2 mb-1 hidden">
                             <option>None</option>
                             <option>Phone Number</option>
                             <option>Email ID</option>
@@ -94,7 +91,7 @@
                             <option>Regex</option>
                         </select>
                         <label for="" class="mb-2 hidden">Regex Expression</label>
-                        <input class="w-full colorPrimaryBackground colorTernaryBorder colorSecondary rounded p-1 hidden" placeholder="Regex Expression">
+                        <input class="w-full rounded p-1 hidden" placeholder="Regex Expression">
                     </div>
                 </div>
             </div>

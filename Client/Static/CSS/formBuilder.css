@@ -1,8 +1,8 @@
-:root {
-  --primary: #011627;
-  --secondary: #fdfffc;
-  --ternary: #2ec4b6;
-}
+/* :root {
+  --primary: ;
+  --secondary: black;
+  --ternary: lightgray;
+} */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 body,
 html {
@@ -11,49 +11,34 @@ html {
   font-family: 'Poppins', sans-serif;
 }
 
-.colorPrimaryBackground {
-  background: var(--primary);
-}
-.colorSecondaryBackground {
-  background: var(--secondary);
-}
-.colorTernaryBackground {
-  background: var(--ternary);
-}
-.colorPrimary {
-  color: var(--primary);
-}
-.colorSecondary {
-  color: var(--secondary);
-}
-.colorTernary {
-  color: var(--ternary);
-}
-.colorPrimaryBorder {
-  border: 1px solid var(--primary);
-}
-.colorSecondaryBorder {
-  border: 1px solid var(--secondary);
-}
-.colorTernaryBorder {
-  border: 1px solid var(--ternary);
-}
-.colorTernaryBorderBottom {
-  border-bottom: 1px solid var(--ternary);
-}
 .formoptionsactive{
     color: var(--ternary);
     text-decoration: underline;
 }
 .navbuttons {
-  color: var(--secondary);
-  background: var(--primary);
+  background: #2EE59D;
+  color: white;
   width: 140px;
   box-sizing: border-box;
-  padding: 5px;
   font-size: 15px;
-  border: 1px var(--secondary) solid;
-  border-radius: 5px;
+}
+.navbuttons:hover{
+  box-shadow: 5px 5px 5px rgba(46, 229, 157, 0.4);
+}
+.border{
+  border: 1px solid #484349;
+}
+.borderTop{
+  border-top: 1px solid #484349;
+}
+.borderBottom{
+  border-bottom: 1px solid #484349;
+}
+.borderLeft{
+  border-left: 1px solid #484349;
+}
+.borderRight{
+  border-right: 1px solid #484349;
 }
 .divpreview{
   transform-origin: 50% 3%;
@@ -62,7 +47,7 @@ html {
 .switchlabel {
 	width: 50px;
 	height: 25px;
-}
+  }
 
 .switchlabel:after {
 	content: '';
@@ -77,7 +62,8 @@ html {
 }
 
 .switchcheckbox:checked + .switchlabel {
-	background: #bada55;
+	background: #2EE59D;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
 }
 
 .switchcheckbox:checked + .switchlabel:after {
@@ -88,8 +74,24 @@ html {
 .switchlabel:active:after {
 	width: 13px;
 }
-/*
-Primary : 011627
-Secondary : FDFFFC
-Ternary : 2EC4B6
-*/
+.questionpage{
+  height: 550px;
+  width: 800px;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  background: #2EE59D;
+}
+.questionpagepreview{
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  background: #2EE59D;
+}
+
+input, textarea{
+  outline: #2EE59D ;
+  border:2px solid #2EE59D;
+  background: #2EE59D;
+  color: white;
+}
+input::placeholder,textarea::placeholder{
+    color: #484349;
+
+}
