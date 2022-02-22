@@ -21,17 +21,16 @@
         <div class="flex flex-row h-full ">
             <div class="flex border">
                 <div class="flex flex-col">
-                    <div class="flex text-center justify-between p-3 borderBottom ">
+                    <div class="flex text-center justify-between p-2 borderBottom ">
                         <h1>Questions</h1>
                         <i class="fa-regular fa-square-plus fa-2x"></i>
                     </div>
-                    <div class="flex flex-col overflow-auto colorWhite">
+                    <div class="flex flex-col overflow-y-auto colorWhite">
                         <a href="#">
                         <div class="flex flex-row borderBottom ">
-                            <div class=" flex flex-row max-h-32 max-w-fit my-2">
-                                1.
+                            <div class=" flex flex-row">
                                 <div class="divpreview ">
-                                    <div class="h-60 w-72 rounded questionpagepreview">
+                                    <div class="h-60 w-64 rounded questionpagepreview">
                                         <div class="flex flex-col h-full rounded justify-center items-center">
                                             <h1 class="">What is the question?</h1>
                                             <input class="w-3/5 questionInput" disabled>   
@@ -41,6 +40,7 @@
                             </div>
                         </div>
                         </a>    
+                        
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="flex flex-col questionpage rounded justify-center items-center mt-10 m-auto">
                     <h1 class="text-3xl">What is the question?</h1>
-                    <textarea class="questionTextinput rounded resize-none"></textarea>
+                    <textarea disabled  class="questionTextinput rounded resize-none"></textarea>
                 </div>
                 <div class="flex flex-col questionpage rounded justify-center items-center mt-10 m-auto">
                     <h1 class="text-3xl">Select Multiple Options?</h1>
@@ -103,8 +103,11 @@
                     <h1 class="text-3xl">What is the question?</h1>
                     <input disabled id="file" class="fileinput rounded" type="file">
                 </div>
+                <div class="flex flex-col questionpage rounded justify-center items-center mt-10 m-auto">
+                    <h1 class="text-3xl">Thank you For Filling the Form</h1>
+                </div>
             </div>
-            <div class="flex flex-col border h-full">
+            <div class="flex flex-col border h-full w-96">
                 <div class="justify-evenly flex p-1 borderBottom">
                     <h1>Options</h1>
                 </div>
