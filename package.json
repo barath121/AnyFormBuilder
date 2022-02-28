@@ -1,0 +1,43 @@
+{
+  "name": "anyformbuilder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-session": "^1.17.2",
+    "firebase": "^9.6.7",
+    "firebase-admin": "^10.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.3",
+    "multer": "^1.4.4",
+    "nanoid": "^3.3.1",
+    "passport": "^0.5.2",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.10.0",
+    "eslint-plugin-vue": "^8.5.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "lint": "eslint .  --ext .js",
+    "lint-fix": "eslint --fix .  --ext .js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/barath121/AnyFormBuilder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/barath121/AnyFormBuilder/issues"
+  },
+  "homepage": "https://github.com/barath121/AnyFormBuilder#readme"
+}
