@@ -14,12 +14,17 @@
 
 <body>
     <div class="flex flex-col h-screen">
-        <div class="flex justify-end h-8 m-2">
-            <button class="navbuttons rounded mr-2">Preview</button>
+        <div class="flex place-content-between h-8 m-2">
+            <div class="">
+                <a href="./dashboard.html"><h1>AnyFormBuilder</h1></a>
+        </div>
+        <div class="flex justify-end">
+            <button class="navbuttons rounded mr-2"><a href="./preview.html">Preview</a></button>
             <button class="navbuttons rounded mr-2">Publish</button>
             <button class="navbuttons rounded mr-2">Embed</button>
         </div>
-        <div class="flex flex-row h-full ">
+            </div>
+        <div class="flex flex-row h-full">
             <div class="flex border">
                 <div class="flex flex-col">
                     <div class="flex text-center justify-between p-2 borderBottom ">
@@ -31,7 +36,7 @@
                         <div class="flex flex-row borderBottom ">
                             <div class=" flex flex-row">
                                 <div class="divpreview ">
-                                    <div class="h-60 w-64 rounded questionpagepreview">
+                                    <div class="h-60 w-64 rounded questionpage snap-center">
                                         <div class="flex flex-col h-full rounded justify-center items-center">
                                             <h1 class="">What is the question?</h1>
                                             <input class="w-3/5 questionInput" disabled>   
@@ -44,16 +49,16 @@
                     </div>
                 </div>
             </div>
-            <div class=" overflow-auto h-full borderTop colorWhite basis-11/12 ">
-                <div class="flex flex-col questionpage rounded justify-center items-center mt-10 m-auto">
+            <div class="h-full borderTop colorWhite basis-11/12 overflow-y-scroll snap-y snap-mandatory">
+                <div class="flex flex-col questionpage snap-center rounded justify-center items-center mt-10 m-auto">
                     <h1 class="text-3xl">What is the question?</h1>
                     <input disabled class="questionInput ">
                 </div>
-                <div class="flex flex-col questionpage rounded justify-center items-center mt-10 m-auto">
+                <div class="flex flex-col questionpage snap-center rounded justify-center items-center mt-10 m-auto">
                     <h1 class="text-3xl">What is the question?</h1>
                     <textarea disabled  class="questionTextinput rounded resize-none"></textarea>
                 </div>
-                <div class="flex flex-col questionpage rounded justify-center items-center mt-10 m-auto">
+                <div class="flex flex-col questionpage snap-center rounded justify-center items-center mt-10 m-auto">
                     <h1 class="text-3xl">Select Multiple Options?</h1>
                     <div class="flex flex-col">
                     <div>
@@ -74,7 +79,7 @@
                     </div>
                     </div>
                 </div>
-                <div class="flex flex-col questionpage rounded justify-center items-center mt-10 m-auto">
+                <div class="flex flex-col questionpage snap-center rounded justify-center items-center mt-10 m-auto">
                     <h1 class="text-3xl">Select One Option?</h1>
                     <div class="flex flex-col">
                     <div>
@@ -95,15 +100,15 @@
                     </div>
                     </div>
                 </div>
-                <div class="flex flex-col questionpage rounded justify-center items-center mt-10 m-auto">
+                <div class="flex flex-col questionpage snap-center rounded justify-center items-center mt-10 m-auto">
                     <h1 class="text-3xl">What is the Date?</h1>
                     <input disabled id="date" type="date">
                 </div>
-                <div class="flex flex-col questionpage rounded justify-center items-center mt-10 m-auto">
+                <div class="flex flex-col questionpage snap-center rounded justify-center items-center mt-10 m-auto">
                     <h1 class="text-3xl">What is the question?</h1>
                     <input disabled id="file" class="fileinput rounded" type="file">
                 </div>
-                <div class="flex flex-col questionpage rounded justify-center items-center mt-10 m-auto">
+                <div class="flex flex-col questionpage snap-center rounded justify-center items-center mt-10 m-auto">
                     <h1 class="text-3xl">Thank you For Filling the Form</h1>
                 </div>
             </div>
@@ -115,10 +120,11 @@
                     <div class="flex flex-col items-start p-2 borderBottom">
                         <label>Type</label>
                         <select class="w-full rounded p-1">
+                            <option>Statement</option>
                             <option>Small Text</option>
                             <option>Large Text</option>
-                            <option>Paragraph</option>
                             <option>Check Box</option>
+                            <option>Radio Button</option>
                             <option>Date</option>
                             <option>File</option>
                         </select>
@@ -140,8 +146,8 @@
                     <div class="p-2 borderBottom">
                     <div class="flex flex-row justify-between mb-2">
                         <label for="">Max Characters</label>
-                        <input type="checkbox" id="requiredswitch" class="switchcheckbox h-0 w-0 invisible" /><label
-                            for="requiredswitch"
+                        <input type="checkbox" id="maxcharacterswitch" class="switchcheckbox h-0 w-0 invisible" /><label
+                            for="maxcharacterswitch"
                             class="switchlabel cursor-pointer block rounded-full bg-rose-400 relative"></label>
                     </div>
                     <input class="w-full rounded p-1" placeholder="Number" type="number" min="0">
@@ -154,13 +160,6 @@
                                 class="switchlabel cursor-pointer block rounded-full bg-rose-400 relative"></label>
                         </div>
                         <div class="flex flex-col justify-between">
-                        <select class="w-full rounded p-1 mb-1">
-                            <option>None</option>
-                            <option>Phone Number</option>
-                            <option>Email ID</option>
-                            <option>Number</option>
-                            <option>Regex</option>
-                        </select>
                         <label for="" class="mb-2 hidden">Regex Expression</label>
                         <input class="w-full rounded p-1" placeholder="Regex Expression">
                     </div>

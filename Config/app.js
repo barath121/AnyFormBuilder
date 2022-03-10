@@ -1,5 +1,7 @@
 const express = require('express')
 const app = express()
+const morgan = require('morgan')
+app.use(morgan('tiny'))
 require('dotenv').config({ path: './.env' })
 var cors = require('cors')
 /* CORS */
@@ -7,9 +9,7 @@ app.use(cors({
 	origin : '*'
 }))
 /*Initilize Database */
-
 require('./database')()
-
 /*Form Parsing */
 const multer = require('multer')
 const upload = multer({

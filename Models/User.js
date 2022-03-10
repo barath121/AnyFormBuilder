@@ -11,7 +11,8 @@ const userSchema = mongoose.Schema({
 		required : true,
 		unique : true,
 		lowercase: true, 
-		trim: true
+		trim: true,
+		match : /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
 	},
 	phone : {
 		type : Number,
@@ -38,7 +39,7 @@ const userSchema = mongoose.Schema({
 		type : String
 	}
 },{
-	timestamps: true,
+	timestamps: { createdAt: true, updatedAt: false },
 })
 
 const User = mongoose.model('User',userSchema)

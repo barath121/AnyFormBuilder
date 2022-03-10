@@ -58,6 +58,11 @@ color: white;
   background: #2EE59D;
 }
 .questionpagepreview{
+  height: 100vh;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  background: #2EE59D;
+}
+.questionpagepreview{
   box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
   background: #2EE59D;
 }

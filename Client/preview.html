@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="./Static/CSS/index.css">
+    <link rel="stylesheet" href="./Static/CSS/formBuilder.css">
+    <link rel="stylesheet" href="./Static/CSS/index.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/ef34b3068e.js" crossorigin="anonymous"></script>
+    <title>Preview</title>
+</head>
+<body>
+    <div class="borderTop colorWhite h-screen overflow-y-scroll snap-y snap-mandatory">
+        <div class="flex flex-col questionpagepreview snap-start rounded justify-center items-center m-auto">
+            <h1 class="text-3xl">What is the question?</h1>
+            <input class="questionInput ">
+        </div>
+        <div class="flex flex-col questionpagepreview snap-start rounded justify-center items-center m-auto">
+            <h1 class="text-3xl">What is the question?</h1>
+            <textarea  class="questionTextinput rounded resize-none"></textarea>
+        </div>
+        <div class="flex flex-col questionpagepreview snap-start rounded justify-center items-center m-auto">
+            <h1 class="text-3xl">Select Multiple Options?</h1>
+            <div class="flex flex-col">
+            <div>
+                <input id="cb1" type="checkbox">
+                <label for="cb1">Option 1</label>
+            </div>
+            <div>
+                <input id="cb2" type="checkbox">
+                <label for="cb2">Option 2</label>
+            </div>
+            <div>
+                <input id="cb3" type="checkbox" >
+                <label for="cb3">Option 3</label>
+            </div>
+            <div>
+                <input id="cb4" type="checkbox">
+                <label for="cb4">Option 4</label>
+            </div>
+            </div>
+        </div>
+        <div class="flex flex-col questionpagepreview snap-start rounded justify-center items-center m-auto">
+            <h1 class="text-3xl">Select One Option?</h1>
+            <div class="flex flex-col">
+            <div>
+                <input id="rb1" type="radio" name="radiogrp">
+                <label for="rb1">Option 1</label>
+            </div>
+            <div>
+                <input id="rb2" type="radio" name="radiogrp">
+                <label for="rb2">Option 2</label>
+            </div>
+            <div>
+                <input id="rb3" type="radio" name="radiogrp">
+                <label for="rb3">Option 3</label>
+            </div>
+            <div>
+                <input id="rb4" type="radio" name="radiogrp">
+                <label for="rb4">Option 4</label>
+            </div>
+            </div>
+        </div>
+        <div class="flex flex-col questionpagepreview snap-start rounded justify-center items-center m-auto">
+            <h1 class="text-3xl">What is the Date?</h1>
+            <input id="date" type="date">
+        </div>
+        <div class="flex flex-col questionpagepreview snap-start rounded justify-center items-center m-auto">
+            <h1 class="text-3xl">What is the question?</h1>
+            <input id="file" class="fileinput rounded" type="file">
+        </div>
+        <div class="flex flex-col questionpagepreview snap-start rounded justify-center items-center m-auto">
+            <h1 class="text-3xl">Thank you For Filling the Form</h1>
+        </div>
+    </div>
+</body>
+</html>

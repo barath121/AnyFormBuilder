@@ -8,7 +8,7 @@ const handleValidationError = (err, res) => {
 	if(error.length > 1) {
 		error = error.join(',')
 	}
-	res.status(400).json({message : 'Enter valid values for '+error+'.'})
+	res.status(400).json({message : 'Enter valid value for '+error+'.'})
 }
 module.exports.PageNotFoundHandler = (req, res, next) => {
 	const err={}
@@ -17,8 +17,7 @@ module.exports.PageNotFoundHandler = (req, res, next) => {
 	err.code = 404
 	next(err)
 }
-module.exports.ErrorHandler = (err, req, res) =>{
-	console.log(err)
+module.exports.ErrorHandler = (err, req, res ,next) =>{
 	if(err.name === 'ValidationError') return err = handleValidationError(err, res)
 	else if(err.code && err.code == 11000) return err = handleDuplicateKeyError(err, res)
 	else if(err.code == 404) res.status(404).json({message : ' Page Not Found'})

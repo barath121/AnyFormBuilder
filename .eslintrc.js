@@ -30,6 +30,7 @@ module.exports = {
 		'semi': [
 			'error',
 			'never'
-		]
+		],
+		'no-unused-vars': 'off'
 	}
 }
