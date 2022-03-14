@@ -1,4 +1,5 @@
-const UserRoutes = require('./UserRoutes')
+const UserRoutes = require('./User.js')
+const FormRoutes = require('./Form.js')
 const ErrorHandler = require('./../Utils/ErrorHandler')
 const wwwRedirect= (req, res, next) =>{
 	if (req.headers.host.slice(0, 4) === 'www.') {
@@ -16,6 +17,7 @@ const Routesinit = (app) => {
 	//Redirect to Non WWW website if Starts with WWW
 	app.use(wwwRedirect)
 	app.use('/user',UserRoutes)
+	app.use('/form',FormRoutes)
 	app.use(ErrorHandler.PageNotFoundHandler)
 	app.use(ErrorHandler.ErrorHandler)
 }

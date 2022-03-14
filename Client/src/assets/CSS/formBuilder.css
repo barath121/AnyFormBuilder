@@ -87,11 +87,18 @@ select {
 }
 
 .questionInput{
-  border-bottom: 1px solid white;
+  border-bottom: 2px solid white;
 }
 .questionTextinput{
-  border: 1px solid white;
+  border: 2px solid white;
 }
 .fileinput{
-  border: 1px solid white;
+  border: 2px solid white;
+}
+.hidescroll {
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+}
+.hidescroll::-webkit-scrollbar { 
+  display: none;
 }

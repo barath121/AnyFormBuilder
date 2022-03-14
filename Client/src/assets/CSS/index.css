@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 body,
 html {
   padding: 0;
@@ -24,7 +27,7 @@ html {
   border-right: 1px solid #484349;
 }
 .button {
-  background: #2EE59D;
+  background: #2EE59D !important  ;
   color: white;
   width: 140px;
   box-sizing: border-box;

@@ -18,8 +18,9 @@ module.exports.PageNotFoundHandler = (req, res, next) => {
 	next(err)
 }
 module.exports.ErrorHandler = (err, req, res ,next) =>{
+	console.log(err)
 	if(err.name === 'ValidationError') return err = handleValidationError(err, res)
 	else if(err.code && err.code == 11000) return err = handleDuplicateKeyError(err, res)
 	else if(err.code == 404) res.status(404).json({message : ' Page Not Found'})
-	else res.status(400).json({message : 'Internal Server Error'})
+	else res.status(500).json({message : 'Internal Server Error'})
 }

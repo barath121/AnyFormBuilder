@@ -14,22 +14,6 @@ const userSchema = mongoose.Schema({
 		trim: true,
 		match : /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
 	},
-	phone : {
-		type : Number,
-		required : true,
-		unique : true,
-		validate: {
-			validator: function(v) {
-				//eslint-disable-next-line
-				return /^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/.test(v)
-			},
-		}
-	},
-	name : {
-		type : String,
-		required : true,
-		trim: true
-	},
 	//add password validation before release
 	password : {
 		type : String,
