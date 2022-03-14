@@ -8,7 +8,7 @@
             <div class="flex justify-end">
                 <button class="navbuttons rounded mr-2"><a href="./preview.html">Preview</a></button>
                 <button class="navbuttons rounded mr-2">Publish</button>
-                <button class="navbuttons rounded mr-2">Embed</button>
+                <button class="navbuttons rounded mr-2">Save</button>
             </div>
         </div>
 </template>

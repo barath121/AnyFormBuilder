@@ -21,6 +21,8 @@
         <textarea
           class="w-full rounded p-1 resize-none"
           placeholder="Question"
+          v-model="question"
+          @input="changeQuestion"
         ></textarea>
       </div>
       <div class="flex flex-col p-2 borderBottom">
@@ -28,6 +30,8 @@
         <textarea
           class="w-full rounded p-1 resize-none"
           placeholder="Add Choices One Per Line"
+          v-model="choices"
+          @input="changeChoices"
         ></textarea>
       </div>
       <div class="flex flex-row p-2 justify-between borderBottom">
@@ -81,4 +85,27 @@
   </div>
 </template>
 <script>
+</script>
+<script>
+export default {
+  name : "OptionsBar",
+  props: ["pages", "selectedpage"],
+  data(){
+    return{
+    question : this.pages[this.selectedpage].question,
+    choices : this.convertArrayToCSV(this.pages[this.selectedpage].choices),
+    }
+  },
+  methods: {
+    changeQuestion() {
+      this.$emit("changeQuestion", this.question);
+    },
+    changeChoices(){
+      this.$emit("changeChoices", this.choices.split(",").map(choice=>choice.trim()));
+    },
+    convertArrayToCSV(arr){
+      return arr.join(",");
+    }
+  }
+};
 </script>

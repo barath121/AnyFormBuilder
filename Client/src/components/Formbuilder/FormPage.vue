@@ -1,53 +1,48 @@
 <template>
-  <div class="flex flex-col questionpage snap-center rounded justify-center items-center mt-10 m-auto">
-    <h1 class="text-3xl">What is the question?</h1>
-    <input disabled class="w-3/5 questionInput hidden" />
+  <div
+    class="flex flex-col questionpage snap-center rounded justify-center items-center mt-10 m-auto"
+  >
+    <h1 class="text-3xl break-all overflow-auto hidescroll">{{pages[selectedpage].question}}</h1>
+    <input
+      disabled
+      class="w-3/5 questionInput"
+      v-if="pages[selectedpage].pageType == 'Small Text'"
+    />
     <textarea
       disabled
-      class="w-3/5 questionTextinput rounded resize-none hidden"
+      class="w-3/5 questionTextinput rounded resize-none"
+      v-else-if="pages[selectedpage].pageType == 'Large Text'"
     ></textarea>
-    <div class="flex flex-col overflow-y-auto hidescroll hidden">
-      <div>
-        <input disabled id="cb1" type="checkbox" />
-        <label for="cb1">Option 1</label>
-      </div>
-      <div>
-        <input disabled id="cb2" type="checkbox" />
-        <label for="cb2">Option 2</label>
-      </div>
-      <div>
-        <input disabled id="cb3" type="checkbox" />
-        <label for="cb3">Option 3</label>
-      </div>
-      <div>
-        <input disabled id="cb4" type="checkbox" />
-        <label for="cb4">Option 4</label>
+    <div
+      class="flex flex-col overflow-y-auto hidescroll"
+      v-else-if="pages[selectedpage].pageType == 'Check Box'"
+    >
+      <div v-for="(choice, index) in pages[selectedpage].choices" :key="choice + index">
+        <input disabled type="checkbox" />
+        <label class="overflow-auto hidescroll break-all">{{ choice }}</label>
       </div>
     </div>
-    <div class="flex flex-col overflow-y-auto hidescroll hidden">
-      <div>
+    <div
+      class="flex flex-col overflow-y-auto hidescroll"
+      v-else-if="pages[selectedpage].pageType == 'Radio Button'"
+    >
+      <div v-for="(choice, index) in pages[selectedpage].choices" :key="choice + index">
         <input disabled id="rb1" type="radio" name="radiogrp" />
-        <label for="rb1">Option 1</label>
-      </div>
-      <div>
-        <input disabled id="rb2" type="radio" name="radiogrp" />
-        <label for="rb2">Option 2</label>
-      </div>
-      <div>
-        <input disabled id="rb3" type="radio" name="radiogrp" />
-        <label for="rb3">Option 3</label>
-      </div>
-      <div>
-        <input disabled id="rb4" type="radio" name="radiogrp" />
-        <label for="rb4">Option 4</label>
+        <label class="overflow-auto hidescroll break-all">{{ choice }}</label>
       </div>
     </div>
-    <input disabled id="date" type="date" class="hidden" />
+    <input disabled id="date" type="date" v-else-if="pages[selectedpage].pageType == 'Date'" />
     <input
       disabled
       id="file"
       class="w-3/5 fileinput rounded hidden"
       type="file"
+      v-else-if="pages[selectedpage].pageType == 'File'"
     />
   </div>
 </template>
+<script>
+export default {
+  props: ["pages", "selectedpage"],
+};
+</script>

@@ -12,7 +12,6 @@
             <div class="" v-for="(page) in pages" :key="page.id" >
                 <Formpagelist  :page="page"/>
             </div>
-            
           </div>
         </div>
       </div>
@@ -20,9 +19,14 @@
         class="h-full borderTop colorWhite basis-11/12 overflow-y-scroll snap-y snap-mandatory hidescroll"
         id="formPagesHolder"
       >
-        <Formpage />
+        <Formpage :pages="pages" :selectedpage="selectedpage"/>
       </div>
-      <Optionsbar />
+      <Optionsbar 
+      :pages="pages" 
+      :selectedpage="selectedpage" 
+      @changeQuestion="pages[selectedpage].question = $event"
+      @changeChoices="pages[selectedpage].choices = $event" 
+      />
     </div>
   </div>
 </template>
@@ -44,16 +48,16 @@ export default {
   },
   props: {
     page : {
-pageType: { required: true, type: String },
-    question: { default: false, type: String },
-    choices: [{ required: true, type: String }],
-    isRequired : { required: true, type: Boolean },
-    id : {required : true , type : Boolean}
+      pageType: { required: true, type: String },
+      question: { default: false, type: String },
+      choices: [{ required: true, type: String }],
+      isRequired : { required: true, type: Boolean },
+      id : {required : true , type : Boolean}
     }
-    
   },
   data() {
     return {
+      selectedpage  : 1,
       pages: [
           {
             pageType: "Small Text",
@@ -80,5 +84,8 @@ pageType: { required: true, type: String },
         ]
     };
   },
+  methods : {
+
+  }
 };
 </script>
