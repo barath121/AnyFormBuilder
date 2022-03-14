@@ -3,7 +3,18 @@
     <Navbar />
     <div class="flex flex-row h-full">
       <div class="flex border" id="formPagesListHolder">
-        <Formpagelist />
+        <div class="flex flex-col">
+          <div class="flex text-center justify-between p-2 borderBottom">
+            <h1>Questions</h1>
+            <i class="fa-regular fa-square-plus fa-2x"></i>
+          </div>
+          <div class="flex flex-col overflow-y-auto colorWhite">
+            <div class="" v-for="(page) in pages" :key="page.id" >
+                <Formpagelist  :page="page"/>
+            </div>
+            
+          </div>
+        </div>
       </div>
       <div
         class="h-full borderTop colorWhite basis-11/12 overflow-y-scroll snap-y snap-mandatory hidescroll"
@@ -32,44 +43,41 @@ export default {
     Optionsbar,
   },
   props: {
-    label: { required: true, type: String },
-    done: { default: false, type: Boolean },
-    id: { required: true, type: String },
+    page : {
+pageType: { required: true, type: String },
+    question: { default: false, type: String },
+    choices: [{ required: true, type: String }],
+    isRequired : { required: true, type: Boolean },
+    id : {required : true , type : Boolean}
+    }
+    
   },
   data() {
     return {
       pages: [
-        [
           {
             pageType: "Small Text",
             question: "What is your name",
             choices: [],
             isRequired: true,
-            _id: {
-              $oid: "622f54f78ecbfeeab3baa37c",
-            },
+            id: 1,
           },
           {
-            pageType: "Check Box",
-            question: "What is your name",
+            pageType: "Radio Button",
+            question: "What is your name1",
             choices: ["Ramesh", "Suresh", "Ram"],
             isRequired: true,
-            _id: {
-              $oid: "622f54f78ecbfeeab3baa37d",
-            },
+            id: 2,
           },
           {
-            pageType: "Small Text",
-            question: "What is your name",
+            pageType: "Large Text",
+            question: "What is your name2",
             choices: [],
             isRequired: false,
             regex: "/123/",
-            _id: {
-              $oid: "622f54f78ecbfeeab3baa37e",
-            },
+            id: 3,
           },
-        ],
-      ],
+        ]
     };
   },
 };
