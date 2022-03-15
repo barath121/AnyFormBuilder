@@ -1,5 +1,4 @@
 <template>
-  <a href="#">
     <div class="flex flex-row borderBottom">
       <div class="flex flex-row">
         <div class="divpreview">
@@ -43,7 +42,6 @@
         </div>
       </div>
     </div>
-  </a>
 </template>
 <script>
   export default {

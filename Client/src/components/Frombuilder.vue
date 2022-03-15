@@ -8,9 +8,9 @@
             <h1>Questions</h1>
             <i class="fa-regular fa-square-plus fa-2x"></i>
           </div>
-          <div class="flex flex-col overflow-y-auto colorWhite">
+          <div class="flex flex-col overflow-y-auto colorWhite cursor-pointer">
             <div class="" v-for="(page) in pages" :key="page.id" >
-                <Formpagelist  :page="page"/>
+                <Formpagelist  :page="page" v-on:click="getSelectedPageIndex(page.id)"/>
             </div>
           </div>
         </div>
@@ -26,6 +26,9 @@
       :selectedpage="selectedpage" 
       @changeQuestion="pages[selectedpage].question = $event"
       @changeChoices="pages[selectedpage].choices = $event" 
+      @changeIsRequired="pages[selectedpage].isRequired = $event"
+      @changeMaxCharacters="pages[selectedpage].maxCharacters = $event"
+      @changeVerification="pages[selectedpage].regex = $event"
       />
     </div>
   </div>
@@ -57,20 +60,21 @@ export default {
   },
   data() {
     return {
-      selectedpage  : 1,
+      selectedpage  : 0,
       pages: [
           {
             pageType: "Small Text",
             question: "What is your name",
             choices: [],
             isRequired: true,
+            maxCharacters : 5,
             id: 1,
           },
           {
             pageType: "Radio Button",
             question: "What is your name1",
             choices: ["Ramesh", "Suresh", "Ram"],
-            isRequired: true,
+            isRequired: false,
             id: 2,
           },
           {
@@ -85,7 +89,9 @@ export default {
     };
   },
   methods : {
-
+    getSelectedPageIndex(id){
+      this.selectedpage = this.pages.findIndex(page => page.id ===id)
+    }
   }
 };
 </script>

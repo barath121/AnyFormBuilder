@@ -6,14 +6,14 @@
     <div class="flex flex-col overflow-auto">
       <div class="flex flex-col items-start p-2 borderBottom">
         <label>Type</label>
-        <select class="w-full rounded p-1">
-          <option>Statement</option>
-          <option>Small Text</option>
-          <option>Large Text</option>
-          <option>Check Box</option>
-          <option>Radio Button</option>
-          <option>Date</option>
-          <option>File</option>
+        <select class="w-full rounded p-1" v-model="pageType">
+          <option value="Statement">Statement</option>
+          <option value="Small Text">Small Text</option>
+          <option value="Large Text">Large Text</option>
+          <option value="Check Box">Check Box</option>
+          <option value="Radio Button">Radio Button</option>
+          <option value="Date">Date</option>
+          <option value="File">File</option>
         </select>
       </div>
       <div class="flex flex-col p-2 borderBottom">
@@ -25,7 +25,7 @@
           @input="changeQuestion"
         ></textarea>
       </div>
-      <div class="flex flex-col p-2 borderBottom">
+      <div class="flex flex-col p-2 borderBottom" v-if="pageType=='Check Box'||pageType=='Radio Button'">
         <label>Choices</label>
         <textarea
           class="w-full rounded p-1 resize-none"
@@ -40,18 +40,22 @@
           type="checkbox"
           id="requiredswitch"
           class="switchcheckbox h-0 w-0 invisible"
+          v-model="isRequired"
+          @change="changeIsRequired"
         /><label
           for="requiredswitch"
           class="switchlabel cursor-pointer block rounded-full bg-rose-400 relative"
         ></label>
       </div>
-      <div class="p-2 borderBottom">
+      <div class="p-2 borderBottom" v-if="pageType=='Small Text'||pageType=='Large Text'">
         <div class="flex flex-row justify-between mb-2">
           <label for="">Max Characters</label>
           <input
             type="checkbox"
             id="maxcharacterswitch"
             class="switchcheckbox h-0 w-0 invisible"
+            v-model="hasMaxCharaters"
+            @change="changeMaxCharacters"
           /><label
             for="maxcharacterswitch"
             class="switchlabel cursor-pointer block rounded-full bg-rose-400 relative"
@@ -61,16 +65,21 @@
           class="w-full rounded p-1"
           placeholder="Number"
           type="number"
-          min="0"
+          min="1"
+          v-model="maxCharacters"
+          v-if="hasMaxCharaters"
+          @input="changeMaxCharacters"
         />
       </div>
-      <div class="p-2 borderBottom">
+      <div class="p-2 borderBottom" v-if="pageType=='Small Text'||pageType=='Large Text'">
         <div class="flex flex-row justify-between mb-2">
           <label for="">Verification</label>
           <input
             type="checkbox"
             id="verificationswitch"
             class="switchcheckbox h-0 w-0 invisible"
+            v-model="hasVerification"
+            @change="changeVerification"
           /><label
             for="verificationswitch"
             class="switchlabel cursor-pointer block rounded-full bg-rose-400 relative"
@@ -78,7 +87,7 @@
         </div>
         <div class="flex flex-col justify-between">
           <label for="" class="mb-2 hidden">Regex Expression</label>
-          <input class="w-full rounded p-1" placeholder="Regex Expression" />
+          <input class="w-full rounded p-1" placeholder="Regex Expression" v-model="regex" v-if="hasVerification" @input="changeVerification"/>
         </div>
       </div>
     </div>
@@ -94,6 +103,12 @@ export default {
     return{
     question : this.pages[this.selectedpage].question,
     choices : this.convertArrayToCSV(this.pages[this.selectedpage].choices),
+    pageType : this.pages[this.selectedpage].pageType,
+    isRequired : this.pages[this.selectedpage].isRequired,
+    maxCharacters : this.pages[this.selectedpage].maxCharacters,
+    hasMaxCharaters : this.pages[this.selectedpage].maxCharacters>0,
+    regex : this.pages[this.selectedpage].regex,
+    hasVerification : this.pages[this.selectedpage].regex&&this.pages[this.selectedpage].regex.length > 0,
     }
   },
   methods: {
@@ -103,8 +118,35 @@ export default {
     changeChoices(){
       this.$emit("changeChoices", this.choices.split(",").map(choice=>choice.trim()));
     },
+    changeIsRequired(){
+      this.$emit("changeIsRequired", this.isRequired);
+    },
+    changeMaxCharacters(){
+      if(this.hasMaxCharaters)
+      this.$emit("changeMaxCharacters", this.maxCharacters);
+      else
+      this.$emit("changeMaxCharacters", undefined);
+    },
+    changeVerification(){
+      if(this.hasVerification)
+      this.$emit("changeVerification", this.regex);
+      else
+      this.$emit("changeVerification", undefined);
+    },
     convertArrayToCSV(arr){
       return arr.join(",");
+    }
+  },
+  watch:{
+    selectedpage(newPage){
+      this.question = this.pages[this.selectedpage].question;
+      this.choices = this.convertArrayToCSV(this.pages[this.selectedpage].choices);
+      this.pageType = this.pages[this.selectedpage].pageType;
+      this.isRequired = this.pages[this.selectedpage].isRequired;
+      this.maxCharacters = this.pages[this.selectedpage].maxCharacters;
+      this.hasMaxCharaters = this.maxCharacters>0;
+      this.regex = this.pages[this.selectedpage].regex;
+      this.hasVerification = this.regex&&this.regex.length > 0;
     }
   }
 };
