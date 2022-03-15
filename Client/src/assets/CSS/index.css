@@ -36,3 +36,22 @@ html {
 .button:hover{
   box-shadow: 5px 5px 5px rgba(46, 229, 157, 0.4);
 }
+
+.buttonalt {
+  background: white !important  ;
+  color: #2EE59D;
+  width: 140px;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+.growAnimation:hover{
+  animation: growAnimation .5s forwards; 
+}
+@keyframes growAnimation{
+  from{
+      transform: scale(1);
+  }
+  to{
+      transform: scale(1.1);
+  }
+}
