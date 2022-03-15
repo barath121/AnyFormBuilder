@@ -1,9 +1,11 @@
 <template>
+<form action="#">
      <div class="borderTop colorWhite h-screen overflow-y-scroll snap-y snap-mandatory">
         <div class="" v-for="(page,index) in pages" :key="page.id" >
                 <Formpage  :page="page" :isLastPage="isLastPage(index)"/>
         </div>
     </div>
+</form>
 </template>
 <style>
 @import "./../assets/CSS/formbuilder.css";

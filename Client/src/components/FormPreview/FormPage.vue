@@ -39,8 +39,8 @@
       type="file"
       v-else-if="page.pageType == 'File'"
     />
-    <button class="buttonalt rounded p-1 m-4 growAnimation" v-if="isLastPage">Submit</button>
-    <button class="buttonalt rounded p-1 m-4 growAnimation" v-else @click="goToNext($event)">Next</button>
+    <button type="submit" class="buttonalt rounded p-1 m-4 growAnimation" v-if="isLastPage">Submit</button>
+    <button type="button" class="buttonalt rounded p-1 m-4 growAnimation" v-else @click="goToNext($event)">Next</button>
   </div>
 </template>
 <script>
@@ -49,9 +49,6 @@ export default {
   methods :{
       goToNext(event){
         event.target.parentElement.parentElement.nextSibling.firstChild.scrollIntoView({behavior: "smooth"})
-      },
-      submitForm(){
-
       }
   }
 };
