@@ -55,3 +55,9 @@ html {
       transform: scale(1.1);
   }
 }
+.icon{
+  color: #2EE59D;
+}
+.icon:hover{
+  box-shadow: 2px rgba(46, 229, 157, 0.4);
+}

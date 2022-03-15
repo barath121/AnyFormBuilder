@@ -1,4 +1,18 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import './assets/CSS/index.css';
-createApp(App).mount('#app')
+import '@imengyu/vue3-context-menu/lib/vue3-context-menu.css'
+import ContextMenu from '@imengyu/vue3-context-menu'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import {faSquarePlus  } from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import Toast , { POSITION }from "vue-toastification";
+import "vue-toastification/dist/index.css";
+library.add(faSquarePlus )
+const app =createApp(App)
+app.component('font-awesome-icon', FontAwesomeIcon)
+app.use(ContextMenu)
+app.use(Toast,{
+    position: POSITION.TOP_RIGHT
+});
+app.mount('#app')

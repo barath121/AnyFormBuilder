@@ -6,7 +6,7 @@
     <div class="flex flex-col overflow-auto">
       <div class="flex flex-col items-start p-2 borderBottom">
         <label>Type</label>
-        <select class="w-full rounded p-1" v-model="pageType">
+        <select class="w-full rounded p-1" v-model="pageType" @change="changePageType">
           <option value="Statement">Statement</option>
           <option value="Small Text">Small Text</option>
           <option value="Large Text">Large Text</option>
@@ -112,11 +112,14 @@ export default {
     }
   },
   methods: {
+    changePageType(){
+      this.$emit("changePageType",this.pageType);
+    },
     changeQuestion() {
       this.$emit("changeQuestion", this.question);
     },
     changeChoices(){
-      this.$emit("changeChoices", this.choices.split(",").map(choice=>choice.trim()));
+      this.$emit("changeChoices", this.choices.split(",").map(choice=>choice.trim()).filter(choice=>choice));
     },
     changeIsRequired(){
       this.$emit("changeIsRequired", this.isRequired);
