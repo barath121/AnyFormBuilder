@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col h-screen">
-    <Navbar />
+    <Navbar/>
     <div class="flex flex-row h-full">
       <div class="flex border" id="formPagesListHolder">
         <div class="flex flex-col">
@@ -54,7 +54,6 @@ import Optionsbar from "./Formbuilder/OptionsBar.vue";
 import ContextMenu from "@imengyu/vue3-context-menu";
 import { v4 as uuidv4 } from "uuid";
 import { useToast } from "vue-toastification";
-
 export default {
   name: "FormBuilder",
   components: {
@@ -117,6 +116,22 @@ export default {
       };
       this.pages.push(page);
     },
+    displayToast(toastType,toastMessage){
+        this.toast[toastType](toastMessage);
+    },
+    duplicatePage(id){
+    let selectedPage = this.pages.findIndex((page) => page.id === id);
+    let tempPage = JSON.parse(
+      JSON.stringify(this.pages[selectedPage])
+    );
+    tempPage.id = uuidv4();
+    this.pages.push(tempPage);
+    },
+    deletePage(id){
+      let selectedPage = this.pages.findIndex((page) => page.id === id);
+      if (this.pages.length > 1) this.pages.splice(selectedPage, 1);
+      else this.displayToast("error","Form must have atleast one page");
+    },
     onContextMenu(e, id) {
       e.preventDefault();
       this.$contextmenu({
@@ -126,20 +141,13 @@ export default {
           {
             label: "Delete",
             onClick: () => {
-              let selectedPage = this.pages.findIndex((page) => page.id === id);
-              if (this.pages.length > 1) this.pages.splice(selectedPage, 1);
-              else this.toast.error("Form must have atleast one page");
+              this.deletePage(id);
             },
           },
           {
             label: "Duplicate",
             onClick: () => {
-              let selectedPage = this.pages.findIndex((page) => page.id === id);
-              let tempPage = JSON.parse(
-                JSON.stringify(this.pages[selectedPage])
-              );
-              tempPage.id = uuidv4();
-              this.pages.push(tempPage);
+             this.duplicatePage(id);
             },
           },
         ],

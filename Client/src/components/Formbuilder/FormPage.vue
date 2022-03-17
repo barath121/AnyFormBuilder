@@ -2,7 +2,7 @@
   <div
     class="flex flex-col questionpage snap-center rounded justify-center items-center mt-10 m-auto"
   >
-    <h1 class="text-3xl break-all overflow-auto hidescroll">{{pages[selectedpage].question}}</h1>
+    <h1 class="text-3xl break-all overflow-auto hidescroll">{{pages[selectedpage].question}}{{isRequired()}}</h1>
     <input
       disabled
       class="w-3/5 questionInput"
@@ -43,6 +43,12 @@
 </template>
 <script>
 export default {
+  name :"FormPageFormBuilder",
   props: ["pages", "selectedpage"],
+  methods : {
+    isRequired(){
+        return this.pages[this.selectedpage].isRequired?"*":"";
+      }
+  }
 };
 </script>

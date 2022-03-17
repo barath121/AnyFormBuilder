@@ -2,7 +2,7 @@
   <div
     class="flex flex-col questionpagepreview snap-center rounded justify-center items-center m-auto"
   >
-    <h1 class="text-3xl break-all overflow-auto hidescroll">{{page.question}}</h1>
+    <h1 class="text-3xl break-all overflow-auto hidescroll">{{page.question}}{{isRequired()}}</h1>
     <input
       disabled
       class="w-3/5 questionInput"
@@ -49,6 +49,9 @@ export default {
   methods :{
       goToNext(event){
         event.target.parentElement.parentElement.nextSibling.firstChild.scrollIntoView({behavior: "smooth"})
+      },
+      isRequired(){
+        return this.page.isRequired?"*":"";
       }
   }
 };
