@@ -17,6 +17,13 @@
         </select>
       </div>
       <div class="flex flex-col p-2 borderBottom">
+        <label>Field name</label>
+        <input
+          class="w-full rounded p-1 resize-none"
+          placeholder="Field Name"
+          v-model="fieldName"
+          @input="changeFieldName"
+        >
         <label>Question</label>
         <textarea
           class="w-full rounded p-1 resize-none"
@@ -71,7 +78,7 @@
           @input="changeMaxCharacters"
         />
       </div>
-      <div class="p-2 borderBottom" v-if="pageType=='Small Text'||pageType=='Large Text'">
+      <div class="p-2 borderBottom" v-if="pageType=='Small Text'">
         <div class="flex flex-row justify-between mb-2">
           <label for="">Verification</label>
           <input
@@ -109,9 +116,13 @@ export default {
     hasMaxCharaters : this.pages[this.selectedpage].maxCharacters>0,
     regex : this.pages[this.selectedpage].regex,
     hasVerification : this.pages[this.selectedpage].regex&&this.pages[this.selectedpage].regex.length > 0,
+    fieldName : this.pages[this.selectedpage].fieldName
     }
   },
   methods: {
+    changeFieldName(){
+      this.$emit("changeFieldName",this.fieldName);
+    },
     changePageType(){
       this.$emit("changePageType",this.pageType);
     },
@@ -150,6 +161,7 @@ export default {
       this.hasMaxCharaters = this.maxCharacters>0;
       this.regex = this.pages[this.selectedpage].regex;
       this.hasVerification = this.regex&&this.regex.length > 0;
+      this.fieldName = this.pages[this.selectedpage].fieldName
     }
   }
 };

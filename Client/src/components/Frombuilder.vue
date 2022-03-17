@@ -38,6 +38,7 @@
         @changeIsRequired="pages[selectedpage].isRequired = $event"
         @changeMaxCharacters="pages[selectedpage].maxCharacters = $event"
         @changeVerification="pages[selectedpage].regex = $event"
+        @changeFieldName="pages[selectedpage].fieldName=$event"
       />
     </div>
   </div>
@@ -77,30 +78,33 @@ export default {
       selectedpage: 0,
       toast : useToast(),
       pages: [
-        {
-          pageType: "Small Text",
-          question: "What is your name",
-          choices: [],
-          isRequired: true,
-          maxCharacters: 5,
-          id: 1,
-        },
-        {
-          pageType: "Radio Button",
-          question: "What is your name1",
-          choices: ["Ramesh", "Suresh", "Ram"],
-          isRequired: false,
-          id: 2,
-        },
-        {
-          pageType: "Large Text",
-          question: "What is your name2",
-          choices: [],
-          isRequired: false,
-          regex: "/123/",
-          id: 3,
-        },
-      ],
+          {
+            fieldName : "Name",
+            pageType: "Small Text",
+            question: "What is your name",
+            choices: [],
+            isRequired: true,
+            maxCharacters : 5,
+            id: 1,
+          },
+          {
+            fieldName : "Name1",
+            pageType: "Radio Button",
+            question: "What is your name1",
+            choices: ["Ramesh", "Suresh", "Ram"],
+            isRequired: false,
+            id: 2,
+          },
+          {
+            fieldName : "Name2",
+            pageType: "Large Text",
+            question: "What is your name2",
+            choices: [],
+            isRequired: false,
+            regex: "/123/",
+            id: 3,
+          },
+        ],
     };
   },
   methods: {

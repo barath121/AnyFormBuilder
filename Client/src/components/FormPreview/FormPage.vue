@@ -7,18 +7,23 @@
       disabled
       class="w-3/5 questionInput"
       v-if="page.pageType == 'Small Text'"
+      :name="page.fieldName"
+      :pattern="page.regex"
+      :maxlength="page.maxCharacters"
     />
     <textarea
       disabled
       class="w-3/5 questionTextinput rounded resize-none"
       v-else-if="page.pageType == 'Large Text'"
+      :name="page.fieldName"
+      :maxlength="page.maxCharacters"
     ></textarea>
     <div
       class="flex flex-col overflow-y-auto hidescroll"
       v-else-if="page.pageType == 'Check Box'"
     >
       <div v-for="(choice, index) in page.choices" :key="choice + index">
-        <input disabled type="checkbox" />
+        <input disabled type="checkbox" :name="page.fieldName"/>
         <label class="overflow-auto hidescroll break-all">{{ choice }}</label>
       </div>
     </div>
@@ -27,17 +32,18 @@
       v-else-if="page.pageType == 'Radio Button'"
     >
       <div v-for="(choice, index) in page.choices" :key="choice + index">
-        <input disabled id="rb1" type="radio" name="radiogrp" />
+        <input disabled id="rb1" type="radio" :name="page.fieldName"/>
         <label class="overflow-auto hidescroll break-all">{{ choice }}</label>
       </div>
     </div>
-    <input disabled id="date" type="date" v-else-if="page.pageType == 'Date'" />
+    <input disabled id="date" type="date" v-else-if="page.pageType == 'Date'" :name="page.fieldName"/>
     <input
       disabled
       id="file"
       class="w-3/5 fileinput rounded hidden"
       type="file"
       v-else-if="page.pageType == 'File'"
+      :name="page.fieldName"
     />
     <button type="submit" class="buttonalt rounded p-1 m-4 growAnimation" v-if="isLastPage">Submit</button>
     <button type="button" class="buttonalt rounded p-1 m-4 growAnimation" v-else @click="goToNext($event)">Next</button>

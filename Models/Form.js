@@ -7,6 +7,10 @@ const formSchema = mongoose.Schema({
 	},
 	pages : [
 		{
+			fieldName :{
+				type : String,
+				required : true
+			},
 			pageType :{
 				type : String,
 				enum : ['Statement','Small Text','Large Text','Check Box','Radio Button','Date','File'],

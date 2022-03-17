@@ -31,6 +31,7 @@ export default {
     return {
       pages: [
           {
+            fieldName : "Name",
             pageType: "Small Text",
             question: "What is your name",
             choices: [],
@@ -39,6 +40,7 @@ export default {
             id: 1,
           },
           {
+            fieldName : "Name1",
             pageType: "Radio Button",
             question: "What is your name1",
             choices: ["Ramesh", "Suresh", "Ram"],
@@ -46,6 +48,7 @@ export default {
             id: 2,
           },
           {
+            fieldName : "Name2",
             pageType: "Large Text",
             question: "What is your name2",
             choices: [],
