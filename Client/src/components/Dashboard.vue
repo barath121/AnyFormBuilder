@@ -82,10 +82,10 @@
       >
         <td>{{ index + 1 }}</td>
         <td>
-          <div class="truncate w-64">{{ form.title }}</div>
+          <div class="truncate w-64"><router-link :to="{path : '/formbuilder/'+form._id}">{{form.title}}</router-link></div>
         </td>
-        <td>{{ toDateWithTime(form.createdOn) }}</td>
-        <td>{{ toDateWithTime(form.modifiedOn) }}</td>
+        <td>{{ toDateWithTime(form.createdAt) }}</td>
+        <td>{{ toDateWithTime(form.updatedAt) }}</td>
       </tr>
     </table>
   </div>
@@ -112,26 +112,24 @@ export default {
       newFormTitle : "",
       currentTitle: "",
       selectedIndex: 0,
-      forms: [
-        {
-          title: "Hello There",
-          createdOn: new Date(),
-          modifiedOn: new Date(),
-        },
-        {
-          title: "Hello There1",
-          createdOn: new Date(),
-          modifiedOn: new Date(),
-        },
-        {
-          title: "Hello There2",
-          createdOn: new Date(),
-          modifiedOn: new Date(),
-        },
-      ],
+      forms: "",
     };
   },
   methods: {
+    getForms(){
+      fetch(`${ import.meta.env.VITE_API_URL}/form/getforms`, {
+            method: "GET",
+            headers: {
+            "Content-Type": "application/json",
+            "Authorization" : "Bearer "+localStorage.getItem("userToken"),
+            }
+        }).then(async (result)=>{
+        let forms = await result.json();
+        this.forms = forms.userForms
+        }).catch(err=>{
+            this.displayToast("error","Some Internal Error");
+        })
+    },
     closeModal(){
       this.renameFormModal = false,
       this.createFormModal = false,
@@ -141,11 +139,33 @@ export default {
       if(this.newFormTitle.length){
        let form =  {
           title: this.newFormTitle,
-          createdOn: new Date(),
-          modifiedOn: new Date(),
+          pages :[
+            {
+            "fieldName" : "name",
+            "pageType" : "Small Text",
+            "question" : "What is your Question"
+            }
+          ]
         }
-        this.forms.push(form);
-        this.displayToast("success","Form Has Been Created");
+        fetch(`${ import.meta.env.VITE_API_URL}/form/createform`, {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            "Authorization" : "Bearer "+localStorage.getItem("userToken"),
+            },
+            body: JSON.stringify(form),
+        })
+        .then(async (result)=>{
+          let formCreatedData = await result.json();
+          if(formCreatedData.message == "Form Created Sucessfully"){
+              this.displayToast("success","The Form has been Created");
+              this.getForms();
+              this.createFormModal = false,
+              this.isModalActive = false;
+          }else{
+            this.displayToast("error",formCreatedData.message);
+          }
+        })
       }
       else{
         this.displayToast("warning","Add a title before creating");
@@ -172,12 +192,54 @@ export default {
       if(this.currentTitle == this.forms[this.selectedIndex].title)
         this.displayToast("warning","The Form Title is already "+ this.currentTitle)
       else{
-        this.forms[this.selectedIndex].title = this.currentTitle;
-        this.displayToast("success","The Form Title has Been Changed")
+        let body = {
+        _id : this.forms[this.selectedIndex]._id,
+        title: this.currentTitle,
+        };
+        fetch(`${ import.meta.env.VITE_API_URL}/form/updateform`, {
+            method: "PATCH",
+            headers: {
+            "Content-Type": "application/json",
+            "Authorization" : "Bearer "+localStorage.getItem("userToken"),
+            },
+            body: JSON.stringify(body),
+        })
+        .then(async (result)=>{
+          let formUpdatedData = await result.json();
+          if(formUpdatedData.message == "Form Updated Sucessfully"){
+              this.displayToast("success","The Form has been renamed")
+              this.forms[this.selectedIndex].title = this.currentTitle;
+          }else{
+            this.displayToast("error",formUpdatedData.message)
+          }
+        }).catch(err=>{
+            this.displayToast("error","Some Internal Error");
+        })
       }
     },
     deleteForm(index){
-      this.forms.splice(index,1);
+       let body = {
+        _id : this.forms[index]._id,
+      };
+        fetch(`${ import.meta.env.VITE_API_URL}/form/deleteform`, {
+            method: "DELETE",
+            headers: {
+            "Content-Type": "application/json",
+            "Authorization" : "Bearer "+localStorage.getItem("userToken"),
+            },
+            body: JSON.stringify(body),
+        })
+        .then(async (result)=>{
+          let deletedFormData = await result.json();
+          if(deletedFormData.message == "Form Deleted Sucessfully"){
+              this.displayToast("success","The Form has been deleted")
+              this.forms.splice(index,1);
+          }else{
+            this.displayToast("error",deletedFormData.message)
+          }
+        }).catch(err=>{
+            this.displayToast("error","Some Internal Error");
+        })
     },
     onContextMenu(e, index) {
       e.preventDefault();
@@ -200,6 +262,9 @@ export default {
         ],
       });
     },
+  },
+  mounted(){
+    this.getForms();  
   },
   mixins : [ToastMixin]
 };
