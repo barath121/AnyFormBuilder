@@ -23,7 +23,7 @@
       v-else-if="page.pageType == 'Check Box'"
     >
       <div v-for="(choice, index) in page.choices" :key="choice + index">
-        <input disabled type="checkbox" :name="page.fieldName"/>
+        <input disabled type="checkbox" :name="page.fieldName" :value="choice"/>
         <label class="overflow-auto hidescroll break-all">{{ choice }}</label>
       </div>
     </div>
@@ -32,7 +32,7 @@
       v-else-if="page.pageType == 'Radio Button'"
     >
       <div v-for="(choice, index) in page.choices" :key="choice + index">
-        <input disabled id="rb1" type="radio" :name="page.fieldName"/>
+        <input disabled id="rb1" type="radio" :name="page.fieldName" :value="choice"/>
         <label class="overflow-auto hidescroll break-all">{{ choice }}</label>
       </div>
     </div>

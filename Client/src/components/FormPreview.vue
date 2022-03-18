@@ -1,5 +1,5 @@
 <template>
-<form action="#">
+<form action="/checkResponse">
      <div class="borderTop colorWhite h-screen overflow-y-scroll snap-y snap-mandatory">
         <div class="" v-for="(page,index) in pages" :key="page.id" >
                 <Formpage  :page="page" :isLastPage="isLastPage(index)"/>
