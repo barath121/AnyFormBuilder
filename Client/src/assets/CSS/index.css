@@ -29,9 +29,10 @@ html {
 .button {
   background: #2EE59D !important  ;
   color: white;
-  width: 140px;
+  width: inherit;
+  padding: 0.2em;
   box-sizing: border-box;
-  font-size: 15px;
+  font-size: 1em;
 }
 .button:hover{
   box-shadow: 5px 5px 5px rgba(46, 229, 157, 0.4);
@@ -40,9 +41,10 @@ html {
 .buttonalt {
   background: white !important  ;
   color: #2EE59D;
-  width: 140px;
+  width: inherit;
+  padding: 0.2em;
   box-sizing: border-box;
-  font-size: 15px;
+  font-size: 1em;
 }
 .growAnimation:hover{
   animation: growAnimation .5s forwards; 

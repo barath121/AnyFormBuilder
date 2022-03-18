@@ -154,8 +154,7 @@ export default {
              this.duplicatePage(id);
             },
           },
-        ],
-        customClass: "hidescroll",
+        ]
       });
     },
   },

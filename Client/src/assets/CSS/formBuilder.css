@@ -4,7 +4,8 @@
 .navbuttons {
   background: #2EE59D;
   color: white;
-  width: 140px;
+  width: inherit;
+  padding: 0.2em;
   box-sizing: border-box;
   font-size: 15px;
 }

@@ -21,7 +21,7 @@ const router = createRouter({
             component : Register
         },
         {
-            path : '/formbuilder',
+            path : '/formbuilder/:id',
             component : FromBuilder
         },
         {
