@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import router from './router.js/router';
 import './assets/CSS/index.css';
 import '@imengyu/vue3-context-menu/lib/vue3-context-menu.css'
 import ContextMenu from '@imengyu/vue3-context-menu'
@@ -12,6 +13,7 @@ library.add(faSquarePlus )
 const app =createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.use(ContextMenu)
+app.use(router);
 app.use(Toast,{
     position: POSITION.TOP_RIGHT
 });
