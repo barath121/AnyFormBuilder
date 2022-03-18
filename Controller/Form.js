@@ -9,7 +9,6 @@ module.exports.createForm = catchAsync(async (req, res, next) => {
 		message: 'Form Created Sucessfully'
 	})
 })
-
 module.exports.updateForm = catchAsync(async (req, res, next) => {
 	let formData = req.body;
 	let formToBeUpdated = await Form.findById(formData._id);

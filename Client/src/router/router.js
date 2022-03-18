@@ -9,7 +9,11 @@ const router = createRouter({
     history,
     routes : [
         {
-            path : '/',
+            path: '/',
+            redirect: '/login'
+        },
+        {
+            path : '/home',
             component : Dashboard
         },
         {

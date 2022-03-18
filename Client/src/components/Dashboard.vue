@@ -39,6 +39,10 @@
       <div class="ml-2">
         <a href="./dashboard.html"><h1>AnyFormBuilder</h1></a>
       </div>
+      <div class="flex mr-2 place-content-between">
+          <img src="https://avatars.githubusercontent.com/u/42098783?v=4" class="h-8 rounded-full mb-1">
+      <a href="./login.html"><h1 class="my-1">Barath</h1></a>
+      </div>
     </div>
   </div>
   <div class="flex flex-row place-content-evenly p-3 borderBottom">
@@ -92,7 +96,7 @@
 <script>
 import ContextMenu from "@imengyu/vue3-context-menu";
 import { $vfm, VueFinalModal, ModalsContainer } from "vue-final-modal";
-import { useToast } from "vue-toastification";
+import ToastMixin from "./../mixins/toast.js";
 export default {
   name: "Dashboard",
   components: {
@@ -107,7 +111,6 @@ export default {
       createFormModal : false,
       newFormTitle : "",
       currentTitle: "",
-      toast : useToast(),
       selectedIndex: 0,
       forms: [
         {
@@ -147,9 +150,6 @@ export default {
       else{
         this.displayToast("warning","Add a title before creating");
       }
-    },
-    displayToast(toastType,toastMessage){
-        this.toast[toastType](toastMessage);
     },
     toDateWithTime(date) {
       return (
@@ -201,5 +201,6 @@ export default {
       });
     },
   },
+  mixins : [ToastMixin]
 };
 </script>

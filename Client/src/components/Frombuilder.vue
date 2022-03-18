@@ -54,7 +54,8 @@ import Formpagelist from "./Formbuilder/FormPageList.vue";
 import Optionsbar from "./Formbuilder/OptionsBar.vue";
 import ContextMenu from "@imengyu/vue3-context-menu";
 import { v4 as uuidv4 } from "uuid";
-import { useToast } from "vue-toastification";
+import ToastMixin from "./../mixins/toast.js";
+
 export default {
   name: "FormBuilder",
   components: {
@@ -76,7 +77,6 @@ export default {
   data() {
     return {
       selectedpage: 0,
-      toast : useToast(),
       pages: [
           {
             fieldName : "Name",
@@ -120,9 +120,6 @@ export default {
       };
       this.pages.push(page);
     },
-    displayToast(toastType,toastMessage){
-        this.toast[toastType](toastMessage);
-    },
     duplicatePage(id){
     let selectedPage = this.pages.findIndex((page) => page.id === id);
     let tempPage = JSON.parse(
@@ -158,5 +155,6 @@ export default {
       });
     },
   },
+  mixins : [ToastMixin]
 };
 </script>

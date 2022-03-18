@@ -11,7 +11,7 @@ const authenticateUser = (username, password, done) => {
 				return done(null, user,'Signin Sucessful')
 			}
 			else {
-				return done(null, false,'Username or Password wrong')
+				return done(null, false,{message : 'Username or Password wrong'})
 			}
 		}
 		catch (e) {
