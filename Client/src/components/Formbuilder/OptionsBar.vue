@@ -36,7 +36,7 @@
         <label>Choices</label>
         <textarea
           class="w-full rounded p-1 resize-none"
-          placeholder="Add Choices One Per Line"
+          placeholder="Add Choices Separated By Comma"
           v-model="choices"
           @input="changeChoices"
         ></textarea>
@@ -124,6 +124,10 @@ export default {
       this.$emit("changeFieldName",this.fieldName);
     },
     changePageType(){
+      if(this.pageType!="Check Box"||this.pageType!="Radio Button"){
+        this.choices = ""
+        this.changeChoices();
+      }
       this.$emit("changePageType",this.pageType);
     },
     changeQuestion() {
