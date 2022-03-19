@@ -19,7 +19,7 @@
           </button>
         </div>
       </div>
-      <div v-if="createFormModal">
+      <div v-if="createFormModal" >
         <span class="modal__title">Create Form</span>
         <div class="modal__content flex flex-col">
           <input type="text" class="rounded p-1" v-model="newFormTitle" />
@@ -142,7 +142,7 @@ export default {
       if(this.newFormTitle.length){
        let form =  {
           title: this.newFormTitle,
-          pages :[
+          savedPages :[
             {
             "fieldName" : "name",
             "pageType" : "Small Text",
@@ -267,7 +267,7 @@ export default {
     },
   },
   mounted(){
-    this.getForms();  
+    this.getForms(); 
   },
   mixins : [ToastMixin]
 };

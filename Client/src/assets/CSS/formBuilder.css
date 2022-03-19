@@ -53,8 +53,8 @@ color: white;
 	width: 13px;
 }
 .questionpage{
-  height: 550px;
-  width: 800px;
+  height: 70%;
+  width: 90%;
   box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
   background: #2EE59D;
 }

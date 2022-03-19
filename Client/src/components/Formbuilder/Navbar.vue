@@ -8,7 +8,7 @@
             <div class="flex justify-end">
                 <button class="navbuttons rounded mr-2"><a href="./preview.html">Preview</a></button>
                 <button class="navbuttons rounded mr-2" @click="publishChanges">Publish</button>
-                <button class="navbuttons rounded mr-2" @click="saveChanges">Save</button>
+                <button class="navbuttons rounded mr-2" @click="saveChanges()">Save</button>
             </div>
         </div>
 </template>
@@ -23,11 +23,10 @@ data() {
 props: ["isPublishModalActive"],
 methods :{
     publishChanges(){
-        this.$parent.displayToast("success","Form Changes Published and Link Has Been Copied")
-        navigator.clipboard.writeText("Copied Text");
+        this.$parent.publishForm();
     },
     saveChanges(){
-        this.$parent.displayToast("success","Form Changes Have Been Saved")
+        this.$parent.saveForm();
     }
 }
 

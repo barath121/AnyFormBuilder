@@ -100,3 +100,17 @@ module.exports.getAllUserForms = catchAsync(async(req,res,next)=>{
 		userForms
 	})
 })
+module.exports.getFormPages = catchAsync(async(req,res,next) =>{
+	let formID = req.params.id;
+	let formData = await Form.findById(formID).select("title savedPages");
+	if(formData){
+		res.status(200).json({
+			message: 'The Form Pages are',
+			formData
+		})
+	}else{
+		res.status(200).json({
+			message: 'The Form does not exists',
+		})
+	}
+})

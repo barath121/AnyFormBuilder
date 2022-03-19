@@ -32,3 +32,8 @@ module.exports.login = catchAsync(async(req, res, next) => {
 		}
 	})(req, res, next)
 })
+module.exports.isTokenValid = (req,res,next) =>{
+	res.status(200).json({
+		message : "The token is valid"
+	})
+}

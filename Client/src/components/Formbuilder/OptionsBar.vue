@@ -109,7 +109,7 @@ export default {
   data(){
     return{
     question : this.pages[this.selectedpage].question,
-    choices : this.convertArrayToCSV(this.pages[this.selectedpage].choices),
+    choices : this.convertArrayToCSV(this.pages[this.selectedpage].choices||[]),
     pageType : this.pages[this.selectedpage].pageType,
     isRequired : this.pages[this.selectedpage].isRequired,
     maxCharacters : this.pages[this.selectedpage].maxCharacters,
@@ -136,8 +136,9 @@ export default {
       this.$emit("changeIsRequired", this.isRequired);
     },
     changeMaxCharacters(){
-      if(this.hasMaxCharaters)
+      if(this.hasMaxCharaters&&this.maxCharacters){
       this.$emit("changeMaxCharacters", this.maxCharacters);
+      }
       else
       this.$emit("changeMaxCharacters", undefined);
     },
@@ -154,7 +155,7 @@ export default {
   watch:{
     selectedpage(newPage){
       this.question = this.pages[this.selectedpage].question;
-      this.choices = this.convertArrayToCSV(this.pages[this.selectedpage].choices);
+      this.choices = this.convertArrayToCSV(this.pages[this.selectedpage].choices||[]);
       this.pageType = this.pages[this.selectedpage].pageType;
       this.isRequired = this.pages[this.selectedpage].isRequired;
       this.maxCharacters = this.pages[this.selectedpage].maxCharacters;

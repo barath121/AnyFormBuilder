@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col h-screen">
-    <Navbar/>
+    <Navbar />
     <div class="flex flex-row h-full">
       <div class="flex border" id="formPagesListHolder">
         <div class="flex flex-col">
@@ -12,7 +12,10 @@
               @click="addPage()"
             />
           </div>
-          <div class="flex flex-col overflow-y-auto colorWhite cursor-pointer">
+          <div
+            class="flex flex-col overflow-y-auto colorWhite cursor-pointer"
+            v-if="isLoaded"
+          >
             <div class="" v-for="page in pages" :key="page.id">
               <Formpagelist
                 :page="page"
@@ -27,18 +30,19 @@
         class="h-full borderTop colorWhite basis-11/12 overflow-y-scroll snap-y snap-mandatory hidescroll"
         id="formPagesHolder"
       >
-        <Formpage :pages="pages" :selectedpage="selectedpage" />
+        <Formpage :pages="pages" :selectedpage="selectedpage" v-if="isLoaded" />
       </div>
       <Optionsbar
         :pages="pages"
         :selectedpage="selectedpage"
+        v-if="isLoaded"
         @changePageType="pages[selectedpage].pageType = $event"
         @changeQuestion="pages[selectedpage].question = $event"
         @changeChoices="pages[selectedpage].choices = $event"
         @changeIsRequired="pages[selectedpage].isRequired = $event"
         @changeMaxCharacters="pages[selectedpage].maxCharacters = $event"
         @changeVerification="pages[selectedpage].regex = $event"
-        @changeFieldName="pages[selectedpage].fieldName=$event"
+        @changeFieldName="pages[selectedpage].fieldName = $event"
       />
     </div>
   </div>
@@ -55,7 +59,7 @@ import Optionsbar from "./Formbuilder/OptionsBar.vue";
 import ContextMenu from "@imengyu/vue3-context-menu";
 import { v4 as uuidv4 } from "uuid";
 import ToastMixin from "./../mixins/toast.js";
-
+import CheckAuthMixin from "./../mixins/checkAuthorized.js";
 export default {
   name: "FormBuilder",
   components: {
@@ -77,61 +81,136 @@ export default {
   data() {
     return {
       selectedpage: 0,
-      pages: [
-          {
-            fieldName : "Name",
-            pageType: "Small Text",
-            question: "What is your name",
-            choices: [],
-            isRequired: true,
-            maxCharacters : 5,
-            id: 1,
-          },
-          {
-            fieldName : "Name1",
-            pageType: "Radio Button",
-            question: "What is your name1",
-            choices: ["Ramesh", "Suresh", "Ram"],
-            isRequired: false,
-            id: 2,
-          },
-          {
-            fieldName : "Name2",
-            pageType: "Large Text",
-            question: "What is your name2",
-            choices: [],
-            isRequired: false,
-            regex: "/123/",
-            id: 3,
-          },
-        ],
+      pages: [],
+      formID: "",
+      isLoaded: false,
     };
   },
   methods: {
+    getPages() {
+      fetch(
+        `${import.meta.env.VITE_API_URL}/form/getformpages/${
+          this.$route.params.id
+        }`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("userToken"),
+          },
+        }
+      )
+        .then(async (result) => {
+          if(result.status=='401')return;
+          let forms = await result.json();
+          let pagesData = forms.formData.savedPages;
+          pagesData.map((el) => {
+            delete el._id;
+            el.id = uuidv4();
+          });
+          this.pages = pagesData;
+          this.formID = forms.formData._id;
+          console.log(this.pages);
+          this.isLoaded = true;
+        })
+        .catch((err) => {
+          this.displayToast("error", "Some Internal Error");
+        });
+    },
     getSelectedPageIndex(id) {
       this.selectedpage = this.pages.findIndex((page) => page.id === id);
-      console.log(this.selectedpage);
     },
     addPage() {
       let page = {
         pageType: "Small Text",
         question: "Add a Question",
+        fieldName: "Question",
         id: uuidv4(),
       };
       this.pages.push(page);
     },
-    duplicatePage(id){
-    let selectedPage = this.pages.findIndex((page) => page.id === id);
-    let tempPage = JSON.parse(
-      JSON.stringify(this.pages[selectedPage])
-    );
-    tempPage.id = uuidv4();
-    this.pages.push(tempPage);
+    duplicatePage(id) {
+      let selectedPage = this.pages.findIndex((page) => page.id === id);
+      let tempPage = JSON.parse(JSON.stringify(this.pages[selectedPage]));
+      tempPage.id = uuidv4();
+      this.pages.push(tempPage);
     },
-    deletePage(id){
+    deletePage(id) {
       let selectedPage = this.pages.findIndex((page) => page.id === id);
       if (this.pages.length > 1) this.pages.splice(selectedPage, 1);
-      else this.displayToast("error","Form must have atleast one page");
+      else this.displayToast("error", "Form must have atleast one page");
+    },
+    publishForm() {
+      if(this.pages.some(el=>!el.fieldName)){
+        this.displayToast("error", "Please add a field name to every page before publishing");
+        return;
+      } 
+      if(this.pages.some((el,index)=>this.pages.map(el=>el.fieldName).indexOf(el.fieldName)!=index)){
+        this.displayToast("error", "All field name should be unique before publishing");
+        return;
+      } 
+      let body = {
+        _id: this.formID,
+        savedPages: this.pages,
+        publishedPages: this.pages,
+      };
+      fetch(`${import.meta.env.VITE_API_URL}/form/updateform`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("userToken"),
+        },
+        body: JSON.stringify(body),
+      })
+        .then(async (result) => {
+          let formUpdatedData = await result.json();
+          if (formUpdatedData.message == "Form Updated Sucessfully") {
+            if (navigator.clipboard && window.isSecureContext) {
+              navigator.clipboard.writeText(
+                `${import.meta.env.VITE_API_URL}/form/${this.formID}`
+              );
+              this.displayToast("success", "The Form Has Been Published");
+            } else {
+              this.displayToast(
+                "success",
+                `The Form Has Been Published on :  ${
+                  import.meta.env.VITE_API_URL
+                }/form/${this.formID}`
+              );
+            }
+          } else {
+            this.displayToast("error", formUpdatedData.message);
+          }
+        })
+        .catch((err) => {
+          this.displayToast("error", "Some Internal Error");
+          console.log(err);
+        });
+    },
+    saveForm() {
+      let body = {
+        _id: this.formID,
+        savedPages: this.pages,
+      };
+      fetch(`${import.meta.env.VITE_API_URL}/form/updateform`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("userToken"),
+        },
+        body: JSON.stringify(body),
+      })
+        .then(async (result) => {
+          let formUpdatedData = await result.json();
+          if (formUpdatedData.message == "Form Updated Sucessfully") {
+            this.displayToast("success", "The pages has been saved");
+          } else {
+            this.displayToast("error", formUpdatedData.message);
+          }
+        })
+        .catch((err) => {
+          this.displayToast("error", "Some Internal Error");
+        });
     },
     onContextMenu(e, id) {
       e.preventDefault();
@@ -148,13 +227,23 @@ export default {
           {
             label: "Duplicate",
             onClick: () => {
-             this.duplicatePage(id);
+              this.duplicatePage(id);
             },
           },
-        ]
+        ],
       });
     },
   },
-  mixins : [ToastMixin]
+  mounted() {
+    this.checkIfUserLoggedIn();
+    this.getPages();
+    document.addEventListener('keydown',event=>{
+      if(event.ctrlKey && event.key === 's'){
+        event.preventDefault();
+        this.saveForm();
+      }
+    })
+  },
+  mixins: [ToastMixin,CheckAuthMixin],
 };
 </script>
