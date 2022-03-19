@@ -1,6 +1,6 @@
 <template>
 <form action="/checkResponse">
-     <div class="borderTop colorWhite h-screen overflow-y-scroll snap-y snap-mandatory">
+     <div class="borderTop colorWhite h-screen overflow-y-scroll snap-y snap-mandatory" v-if="pages.length">
         <div class="" v-for="(page,index) in pages" :key="page.id" >
                 <Formpage  :page="page" :isLastPage="isLastPage(index)"/>
         </div>
@@ -29,40 +29,41 @@ export default {
   },
   data() {
     return {
-      pages: [
-          {
-            fieldName : "Name",
-            pageType: "Small Text",
-            question: "What is your name",
-            choices: [],
-            isRequired: true,
-            maxCharacters : 5,
-            id: 1,
-          },
-          {
-            fieldName : "Name1",
-            pageType: "Radio Button",
-            question: "What is your name1",
-            choices: ["Ramesh", "Suresh", "Ram"],
-            isRequired: false,
-            id: 2,
-          },
-          {
-            fieldName : "Name2",
-            pageType: "Large Text",
-            question: "What is your name2",
-            choices: [],
-            isRequired: false,
-            regex: "/123/",
-            id: 3,
-          },
-        ]
+      pages :[]
     };
   },
   methods: {
+      getPages() {
+      fetch(
+        `${import.meta.env.VITE_API_URL}/form/getformpages/${
+          this.$route.params.id
+        }`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("userToken"),
+          },
+        }
+      )
+        .then(async (result) => {
+          if(result.status=='401')return;
+          let forms = await result.json();
+          this.pages = forms.formData.savedPages;
+          this.formID = forms.formData._id;
+          console.log(this.pages);
+          this.isLoaded = true;
+        })
+        .catch((err) => {
+          this.displayToast("error", "Some Internal Error");
+        });
+    },
       isLastPage(index){
           return this.pages.length -1 == index
       }
+  },
+  mounted() {
+    this.getPages();
   },
 };
 </script>

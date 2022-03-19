@@ -6,8 +6,8 @@
                 </a>
             </div>
             <div class="flex justify-end">
-                <button class="navbuttons rounded mr-2"><a href="./preview.html">Preview</a></button>
-                <button class="navbuttons rounded mr-2" @click="publishChanges">Publish</button>
+                <button class="navbuttons rounded mr-2"><router-link :to="{path : '/preview/'+this.$route.params.id}">Preview</router-link></button>
+                <button class="navbuttons rounded mr-2" @click="publishChanges()">Publish</button>
                 <button class="navbuttons rounded mr-2" @click="saveChanges()">Save</button>
             </div>
         </div>

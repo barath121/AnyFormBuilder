@@ -47,7 +47,7 @@ html {
   font-size: 1em;
 }
 .growAnimation:hover{
-  animation: growAnimation .5s forwards; 
+  animation: growAnimation .1s forwards; 
 }
 @keyframes growAnimation{
   from{

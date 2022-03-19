@@ -45,7 +45,7 @@
       v-else-if="page.pageType == 'File'"
       :name="page.fieldName"
     />
-    <button type="submit" class="buttonalt rounded p-1 m-4 growAnimation" v-if="isLastPage">Submit</button>
+    <button type="submit" class="buttonalt rounded p-1 m-4 growAnimation" v-if="isLastPage" disabled>Submit</button>
     <button type="button" class="buttonalt rounded p-1 m-4 growAnimation" v-else @click="goToNext($event)">Next</button>
   </div>
 </template>

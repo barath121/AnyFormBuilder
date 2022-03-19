@@ -127,6 +127,7 @@ export default {
             "Authorization" : "Bearer "+localStorage.getItem("userToken"),
             }
         }).then(async (result)=>{
+        if(result.status=='401')return;
         let forms = await result.json();
         this.forms = forms.userForms
         }).catch(err=>{

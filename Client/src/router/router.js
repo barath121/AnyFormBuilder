@@ -29,7 +29,7 @@ const router = createRouter({
             component : FromBuilder
         },
         {
-            path : '/preview',
+            path : '/preview/:id',
             component : FormPreview
         }
     ]

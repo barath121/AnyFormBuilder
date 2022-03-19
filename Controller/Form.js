@@ -102,7 +102,7 @@ module.exports.getAllUserForms = catchAsync(async(req,res,next)=>{
 })
 module.exports.getFormPages = catchAsync(async(req,res,next) =>{
 	let formID = req.params.id;
-	let formData = await Form.findById(formID).select("title savedPages");
+	let formData = await Form.findById(formID).select("title savedPages publishedPages");
 	if(formData){
 		res.status(200).json({
 			message: 'The Form Pages are',
