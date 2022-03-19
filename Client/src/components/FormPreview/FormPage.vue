@@ -40,7 +40,7 @@
     <input
       disabled
       id="file"
-      class="w-3/5 fileinput rounded hidden"
+      class="w-3/5 fileinput rounded"
       type="file"
       v-else-if="page.pageType == 'File'"
       :name="page.fieldName"
