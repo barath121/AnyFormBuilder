@@ -48,17 +48,17 @@
   <div class="flex flex-row place-content-evenly p-3 borderBottom">
     <div>
       <label for="">Title:</label>
-      <input type="text" class="ml-1 p-1 shadow focus:outline-none" />
+      <input type="text" class="ml-1 p-1 shadow focus:outline-none" v-model="searchTitle"/>
     </div>
     <div>
       <label for="">Sort By</label>
-      <select class="rounded p-1 ml-1">
-        <option>Last Modified</option>
-        <option>Created On</option>
-        <option>Title</option>
+      <select class="rounded p-1 ml-1" v-model="sortBy">
+        <option value="updatedAt">Last Modified</option>
+        <option value="createdAt">Created On</option>
+        <option value="title">Title</option>
       </select>
     </div>
-    <button class="button rounded">Search</button>
+    <button class="button rounded" @click="getForms()">Search</button>
   </div>
   <div class="items-center mx-4">
     <table class="w-full">
@@ -113,11 +113,14 @@ export default {
       currentTitle: "",
       selectedIndex: 0,
       forms: "",
+      searchTitle : "",
+      sortBy : "updatedAt" 
+
     };
   },
   methods: {
     getForms(){
-      fetch(`${ import.meta.env.VITE_API_URL}/form/getforms`, {
+      fetch(`${ import.meta.env.VITE_API_URL}/form/getforms?sortBy=${this.sortBy}&title=${this.searchTitle}`, {
             method: "GET",
             headers: {
             "Content-Type": "application/json",

@@ -52,14 +52,43 @@ module.exports.deleteForm = catchAsync(async (req, res, next) => {
 })
 module.exports.getAllUserForms = catchAsync(async(req,res,next)=>{
 	let sortBy;
-	if(req.query.soryBy=="createdAt"){
+	let aggregationSteps = [];
+	if(req.query.title){
+		aggregationSteps.push(
+			{
+				$search: {
+					index: 'formtitle',
+					autocomplete: {
+						query: `${req.query.title}`,
+						path: "title",
+						fuzzy: {
+							maxEdits: 2,
+							prefixLength: 3,
+						},
+					},
+				}
+			}
+		)
+	}
+	aggregationSteps.push({
+		$match :{
+			createdBy : req.user._id
+		}
+	})
+	if(req.query.sortBy=="createdAt"){
 		sortBy = {"createdAt" : -1}
-	}else if(req.query.soryBy=="title"){
+	}else if(req.query.sortBy=="title"){
 		sortBy = {"title" : 1}
 	}else{
 		sortBy = {"updatedAt" : -1}
 	}
-	let userForms = await Form.find({createdBy : req.user._id}).sort(sortBy);
+	aggregationSteps.push({
+		$sort : sortBy
+	})
+	console.log(sortBy)
+	let userForms = await Form.aggregate(
+			aggregationSteps
+	)
 	if(userForms.length)
 	res.status(200).json({
 		message: 'The User Forms are',
