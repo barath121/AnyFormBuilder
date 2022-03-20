@@ -3,6 +3,9 @@ const bcrypt = require('bcrypt')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 const catchAsync = require('./../Utils/catchAsync')
+const mailSender = require('./../Utils/mailSender')
+const { v4: uuidv4 } = require('uuid');
+
 module.exports.register = catchAsync(async(req,res,next) =>{
 	let user = req.body
 	if(user.password)
@@ -10,11 +13,9 @@ module.exports.register = catchAsync(async(req,res,next) =>{
 	let newuser = await User.create(user)
 	res.status(201).json({
 		message : 'User Created Sucessfully',
-		user : newuser
 	})
 })
 module.exports.login = catchAsync(async(req, res, next) => {
-	console.log(req.body)
 	passport.authenticate('local', { session: false }, (err, user, msg) => {
 		if (err) next(err)
 		else if (!user) {
@@ -31,6 +32,42 @@ module.exports.login = catchAsync(async(req, res, next) => {
 			})
 		}
 	})(req, res, next)
+})
+module.exports.forgotPassword = catchAsync(async(req,res,next)=>{
+	let email = req.body.email;
+	let user = await User.findOne({email : email});
+	if(user){
+		let token = uuidv4()
+		await User.findByIdAndUpdate(user.id,{
+			forgotPasswordToken : token
+		})
+		let mail = await mailSender("Reset Your Password",email,`Please Open This Link to Reset Your Password ${process.env.ClientURL + "/resetpassword/" + token}`);
+		res.status(200).json({
+			message : "Please check your email to reset password"
+		})
+	}else{
+		res.status(304).json({
+			message : "Please Enter a Valid Email"
+		})
+	}
+})
+module.exports.resetPasswordFromForgotPassword = catchAsync(async(req,res,next)=>{
+	let {token,password} = req.body;
+	password = await bcrypt.hash(req.body.password,parseInt(process.env.Salt));
+	let user = await User.findOne({forgotPasswordToken : token});
+	if(user){
+		await User.findByIdAndUpdate(user.id,{
+			forgotPasswordToken : "",
+			password : password
+		})
+		res.status(200).json({
+			message : "Password Has Been Changed"
+		})
+	}else{
+		res.status(304).json({
+			message : "Your Token is Invalid.Please reset Your Password again"
+		})
+	}
 })
 module.exports.isTokenValid = (req,res,next) =>{
 	res.status(200).json({

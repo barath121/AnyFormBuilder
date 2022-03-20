@@ -1,6 +1,7 @@
 <template>
+<NavBar/>
   <div
-    class="h-screen logincard flex flex-col justify-center items-center w-screen"
+    class="h-screen-90 logincard flex flex-col justify-center items-center w-screen"
   >
     <h1 class="text-xl">Login</h1>
     <form>
@@ -17,7 +18,7 @@
         v-model="password"
       />
     </div>
-    <div class="flex place-content-between my-2 text-rose-600">
+    <div class="flex place-content-between my-2 ">
       <button
         class="button rounded p-1"
         id="loginbtn"
@@ -26,7 +27,9 @@
       >
         Login
       </button>
-      <a href="#">Forgot Password?</a>
+      <router-link to="/forgotpassword" class="text-rose-600"
+        >Forgot Password?</router-link
+      >
     </div>
     </form>
     <p class="text-sm">
@@ -38,8 +41,13 @@
 </template>
 <script>
 import ToastMixin from "./../mixins/toast.js";
+import CheckAuthMixin from "./../mixins/checkAuthorized.js";
+import NavBar from "./MainComponents/NavBar.vue";
 export default {
   name: "Login",
+  components:{
+    NavBar
+  },
   data() {
     return {
       username: "",
@@ -77,6 +85,9 @@ export default {
     })
     },
   },
-  mixins : [ToastMixin]
+  mounted(){
+  this.routerUserToHome();
+  },
+  mixins : [ToastMixin,CheckAuthMixin]
 };
 </script>

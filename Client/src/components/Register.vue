@@ -1,5 +1,6 @@
 <template>
-    <div class="h-screen logincard flex flex-col justify-center items-center  w-screen">
+<NavBar/>
+    <div class="h-screen-90 logincard flex flex-col justify-center items-center  w-screen">
         <h1 class="text-xl">Register</h1>
         <form class="max-w-xs">
             <div class="flex flex-col">
@@ -25,8 +26,12 @@
 </template>
 <script>
 import ToastMixin from "./../mixins/toast.js";
+import NavBar from "./MainComponents/NavBar.vue";
 export default {
     name : "Register",
+    components:{
+    NavBar
+    },
     data() {
         return {
             username : "", 

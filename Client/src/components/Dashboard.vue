@@ -97,6 +97,7 @@
 import ContextMenu from "@imengyu/vue3-context-menu";
 import { $vfm, VueFinalModal, ModalsContainer } from "vue-final-modal";
 import ToastMixin from "./../mixins/toast.js";
+import CheckAuthMixin from "./../mixins/checkAuthorized.js";
 export default {
   name: "Dashboard",
   components: {
@@ -268,8 +269,9 @@ export default {
     },
   },
   mounted(){
+    this.checkIfUserLoggedIn();
     this.getForms(); 
   },
-  mixins : [ToastMixin]
+  mixins : [ToastMixin,CheckAuthMixin]
 };
 </script>

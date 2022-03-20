@@ -21,6 +21,9 @@ const userSchema = mongoose.Schema({
 	},
 	profilePic : {
 		type : String
+	},
+	forgotPasswordToken :{
+		type :String
 	}
 },{
 	timestamps: { createdAt: true, updatedAt: false },

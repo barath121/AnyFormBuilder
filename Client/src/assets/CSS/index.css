@@ -30,7 +30,7 @@ html {
   background: #2EE59D !important  ;
   color: white;
   width: inherit;
-  padding: 0.2em;
+  padding: 0.3em 1em;
   box-sizing: border-box;
   font-size: 1em;
 }
@@ -62,4 +62,7 @@ html {
 }
 .icon:hover{
   box-shadow: 2px rgba(46, 229, 157, 0.4);
+}
+.h-screen-90{
+  height: 90vh;
 }

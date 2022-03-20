@@ -57,7 +57,7 @@ module.exports.getAllUserForms = catchAsync(async(req,res,next)=>{
 		aggregationSteps.push(
 			{
 				$search: {
-					index: 'formtitle',
+					index: 'formsTitle',
 					autocomplete: {
 						query: `${req.query.title}`,
 						path: "title",
@@ -85,10 +85,10 @@ module.exports.getAllUserForms = catchAsync(async(req,res,next)=>{
 	aggregationSteps.push({
 		$sort : sortBy
 	})
-	console.log(sortBy)
 	let userForms = await Form.aggregate(
 			aggregationSteps
 	)
+	console.log(userForms)
 	if(userForms.length)
 	res.status(200).json({
 		message: 'The User Forms are',

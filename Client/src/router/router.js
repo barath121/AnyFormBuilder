@@ -4,6 +4,8 @@ import FormPreview from "../components/FormPreview.vue";
 import Dashboard from "../components/Dashboard.vue";
 import Login from "../components/Login.vue";
 import Register from "../components/Register.vue";
+import ForgotPassword from "../components/ForgotPassword.vue";
+import ResetPassword from "../components/ResetPassword.vue";
 const history = createWebHistory();
 const router = createRouter({
     history,
@@ -31,6 +33,14 @@ const router = createRouter({
         {
             path : '/preview/:id',
             component : FormPreview
+        },
+        {
+            path : '/forgotpassword',
+            component : ForgotPassword
+        },
+        {
+            path : '/resetpassword/:token',
+            component : ResetPassword
         }
     ]
 })
