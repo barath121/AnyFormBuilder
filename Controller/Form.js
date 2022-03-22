@@ -1,6 +1,10 @@
 
 const Form = require('./../Models/Form.js')
-const catchAsync = require('./../Utils/catchAsync')
+const Response = require('./../Models/Response.js')
+const catchAsync = require('./../Utils/catchAsync.js')
+const fileUploader = require('./../Utils/firebaseAdminInit.js')
+const { v4: uuidv4 } = require('uuid');
+
 module.exports.createForm = catchAsync(async (req, res, next) => {
 	let formData = req.body
 	formData.createdBy = req.user._id
@@ -130,7 +134,33 @@ module.exports.getPublishedPages = catchAsync(async(req,res,next) =>{
 })
 
 module.exports.saveFormResponse = catchAsync(async(req,res,next)=>{
-	console.log(req.files)
-	console.log(req.body)
-	res.status(200)
+	let responseObject = {}
+	responseObject.fileFolder = uuidv4();
+	responseObject.formID = req.body.formID;
+	let responseData = JSON.parse(JSON.stringify(req.body));
+	delete responseData.formID;
+	await Promise.all(req.files.map(async file=>{
+		responseData[file.fieldname] =  await fileUploader.uploadFile(file,responseObject.fileFolder);
+	}))
+	responseObject.response = Buffer.from(JSON.stringify(responseData)).toString('base64');
+	await Response.create(responseObject)
+	res.status(200).json({
+		message : "Form Response have been saved"
+	})
+})
+
+module.exports.getResponsesofForms = catchAsync(async(req,res,next)=>{
+	let responses = await Response.find({
+		formID : req.params.id
+	})
+	if(responses.length  == 0)
+	res.status(204).json({
+		message : "There are no responses"
+	});
+	else{
+	let responsesArr =await Promise.all(responses.map(async response => {
+		return await JSON.parse(Buffer.from(response.response, 'base64').toString('ascii'))
+	}))
+	res.xls('responses.xlsx',responsesArr)
+	}
 })

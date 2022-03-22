@@ -11,5 +11,5 @@ FormRoutes.patch('/updateform', FormController.updateForm);
 FormRoutes.delete('/deleteform', FormController.deleteForm); 
 FormRoutes.get('/getforms',FormController.getAllUserForms);
 FormRoutes.get('/getformpages/:id',FormController.getFormPages);
-
+FormRoutes.get('/getformresponses/:id',FormController.getResponsesofForms);
 module.exports = FormRoutes;
