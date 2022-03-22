@@ -10,10 +10,34 @@ module.exports.register = catchAsync(async(req,res,next) =>{
 	let user = req.body
 	if(user.password)
 	user.password = await bcrypt.hash(req.body.password,parseInt(process.env.Salt))
-	let newuser = await User.create(user)
+	user.verificationToken = uuidv4();
+	user.deleteIfNotVerifiedBy = new Date(new Date().getTime() + 1*60000)
+	await User.create(user)
+	console.log(`Please open this link to verify your account ${process.env.ClientURL + "/verifyuser/" + user.verificationToken} .This Link will expire in 5 mins.`)
+	await mailSender("Verify your account",user.email,`Please open this link to verify your account ${process.env.ClientURL + "/verifyuser/" + user.verificationToken} .This Link will expire in 5 mins.`);
 	res.status(201).json({
 		message : 'User Created Sucessfully',
 	})
+})
+module.exports.verifyUser = catchAsync(async(req,res,next)=>{
+	console.log(req.params.id)
+	let user = await User.findOne({
+		verificationToken : req.params.id
+	})
+	if(user){
+		await User.findByIdAndUpdate(user._id,{
+			verificationToken : "",
+			deleteIfNotVerifiedBy : "",
+			isVerified : true
+		})
+		res.status(200).json({
+			message : 'User Verified',
+		})
+	}else{
+		res.status(204).json({
+			message : 'Token is Invalid',
+		})
+	}
 })
 module.exports.login = catchAsync(async(req, res, next) => {
 	passport.authenticate('local', { session: false }, (err, user, msg) => {
@@ -41,7 +65,7 @@ module.exports.forgotPassword = catchAsync(async(req,res,next)=>{
 		await User.findByIdAndUpdate(user.id,{
 			forgotPasswordToken : token
 		})
-		let mail = await mailSender("Reset Your Password",email,`Please Open This Link to Reset Your Password ${process.env.ClientURL + "/resetpassword/" + token}`);
+		await mailSender("Reset Your Password",email,`Please Open This Link to Reset Your Password ${process.env.ClientURL + "/resetpassword/" + token}`);
 		res.status(200).json({
 			message : "Please check your email to reset password"
 		})

@@ -14,7 +14,6 @@ const userSchema = mongoose.Schema({
 		trim: true,
 		match : /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
 	},
-	//add password validation before release
 	password : {
 		type : String,
 		required : true
@@ -24,10 +23,21 @@ const userSchema = mongoose.Schema({
 	},
 	forgotPasswordToken :{
 		type :String
+	},
+	isVerified : {
+		type : Boolean,
+		required : true,
+		default : false
+	},
+	deleteIfNotVerifiedBy : {
+		type : Date,
+	},
+	verificationToken : {
+		type : String
 	}
 },{
 	timestamps: { createdAt: true, updatedAt: false },
 })
-
+userSchema.index({ deleteIfNotVerifiedBy: 1 }, { expireAfterSeconds: 660 })
 const User = mongoose.model('User',userSchema)
 module.exports = User
