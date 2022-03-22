@@ -30,9 +30,6 @@ const formSchema = mongoose.Schema({
 				required : true,
 				default : false
 			},
-			regex : {
-				type : String,
-			},
 			maxCharacters : {
 				type : Number
 			}
@@ -62,9 +59,6 @@ const formSchema = mongoose.Schema({
 				type : Boolean,
 				required : true,
 				default : false
-			},
-			regex : {
-				type : String,
 			},
 			maxCharacters : {
 				type : Number
