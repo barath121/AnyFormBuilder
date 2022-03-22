@@ -7,7 +7,7 @@ const User = require('./../Models/User')
 const authenticateUser = (username, password, done) => {
 	User.findOne({ username: username }).then(async user => {
 		try {
-			if(!user.isVerified){
+			if(user != null && !user.isVerified){
 				return done(null, false,{message : 'Please Verify Email Before Logging In'})
 			}
 			else if (user != null && await bcrypt.compare(password, user.password)) {
