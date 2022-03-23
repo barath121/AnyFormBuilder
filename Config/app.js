@@ -35,8 +35,8 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 /*Excel Middleware*/
-var json2xls = require('json2xls');
-app.use(json2xls.middleware);
+var json2xls = require('json2xls')
+app.use(json2xls.middleware)
 /*Initilize Routes */
 require('./../Routes/RoutesSetup')(app)
 

@@ -3,7 +3,7 @@ const Form = require('./../Models/Form.js')
 const Response = require('./../Models/Response.js')
 const catchAsync = require('./../Utils/catchAsync.js')
 const fileUploader = require('./../Utils/firebaseAdminInit.js')
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid')
 
 module.exports.createForm = catchAsync(async (req, res, next) => {
 	let formData = req.body
@@ -14,15 +14,15 @@ module.exports.createForm = catchAsync(async (req, res, next) => {
 	})
 })
 module.exports.updateForm = catchAsync(async (req, res, next) => {
-	let formData = req.body;
-	let formToBeUpdated = await Form.findById(formData._id);
+	let formData = req.body
+	let formToBeUpdated = await Form.findById(formData._id)
 	if (!formToBeUpdated) {
 		res.status(200).json({
 			message: 'Form Doesn`t Exists'
 		})
 	}
 	else if (formToBeUpdated.createdBy.equals(req.user._id)) {
-		await Form.findByIdAndUpdate(formData._id, formData);
+		await Form.findByIdAndUpdate(formData._id, formData)
 		res.status(200).json({
 			message: 'Form Updated Sucessfully'
 		})
@@ -35,15 +35,15 @@ module.exports.updateForm = catchAsync(async (req, res, next) => {
 })
 
 module.exports.deleteForm = catchAsync(async (req, res, next) => {
-	let formData = req.body;
-	let formToBeDeleted = await Form.findById(formData._id);
+	let formData = req.body
+	let formToBeDeleted = await Form.findById(formData._id)
 	if (!formToBeDeleted) {
 		res.status(200).json({
 			message: 'Form Doesn`t Exists'
 		})
 	}
 	else if (formToBeDeleted.createdBy.equals(req.user._id)) {
-		await Form.findByIdAndDelete(formData._id);
+		await Form.findByIdAndDelete(formData._id)
 		res.status(200).json({
 			message: 'Form Deleted Sucessfully'
 		})
@@ -55,8 +55,8 @@ module.exports.deleteForm = catchAsync(async (req, res, next) => {
 	}
 })
 module.exports.getAllUserForms = catchAsync(async(req,res,next)=>{
-	let sortBy;
-	let aggregationSteps = [];
+	let sortBy
+	let aggregationSteps = []
 	if(req.query.title){
 		aggregationSteps.push(
 			{
@@ -64,7 +64,7 @@ module.exports.getAllUserForms = catchAsync(async(req,res,next)=>{
 					index: 'formsTitle',
 					autocomplete: {
 						query: `${req.query.title}`,
-						path: "title",
+						path: 'title',
 						fuzzy: {
 							maxEdits: 2,
 							prefixLength: 3,
@@ -79,33 +79,33 @@ module.exports.getAllUserForms = catchAsync(async(req,res,next)=>{
 			createdBy : req.user._id
 		}
 	})
-	if(req.query.sortBy=="createdAt"){
-		sortBy = {"createdAt" : -1}
-	}else if(req.query.sortBy=="title"){
-		sortBy = {"title" : 1}
+	if(req.query.sortBy=='createdAt'){
+		sortBy = {'createdAt' : -1}
+	}else if(req.query.sortBy=='title'){
+		sortBy = {'title' : 1}
 	}else{
-		sortBy = {"updatedAt" : -1}
+		sortBy = {'updatedAt' : -1}
 	}
 	aggregationSteps.push({
 		$sort : sortBy
 	})
 	let userForms = await Form.aggregate(
-			aggregationSteps
+		aggregationSteps
 	)
 	if(userForms.length)
-	res.status(200).json({
-		message: 'The User Forms are',
-		userForms
-	})
+		res.status(200).json({
+			message: 'The User Forms are',
+			userForms
+		})
 	else
-	res.status(200).json({
-		message: 'The User Has No Forms',
-		userForms
-	})
+		res.status(200).json({
+			message: 'The User Has No Forms',
+			userForms
+		})
 })
 module.exports.getFormPages = catchAsync(async(req,res,next) =>{
-	let formID = req.params.id;
-	let formData = await Form.findById(formID).select("title savedPages");
+	let formID = req.params.id
+	let formData = await Form.findById(formID).select('title savedPages')
 	if(formData&&formData.createdBy.equals(req.user._id)){
 		res.status(200).json({
 			message: 'The Form Pages are',
@@ -118,8 +118,8 @@ module.exports.getFormPages = catchAsync(async(req,res,next) =>{
 	}
 })
 module.exports.getPublishedPages = catchAsync(async(req,res,next) =>{
-	let formID = req.params.id;
-	let formData = await Form.findById(formID).select("title publishedPages");
+	let formID = req.params.id
+	let formData = await Form.findById(formID).select('title publishedPages')
 	if(formData&&formData.createdBy.equals(req.user._id)){
 		res.status(200).json({
 			message: 'The Form Pages are',
@@ -134,33 +134,33 @@ module.exports.getPublishedPages = catchAsync(async(req,res,next) =>{
 
 module.exports.saveFormResponse = catchAsync(async(req,res,next)=>{
 	let responseObject = {}
-	responseObject.fileFolder = uuidv4();
-	responseObject.formID = req.body.formID;
-	let responseData = JSON.parse(JSON.stringify(req.body));
-	delete responseData.formID;
+	responseObject.fileFolder = uuidv4()
+	responseObject.formID = req.body.formID
+	let responseData = JSON.parse(JSON.stringify(req.body))
+	delete responseData.formID
 	await Promise.all(req.files.map(async file=>{
-		responseData[file.fieldname] =  await fileUploader.uploadFile(file,responseObject.fileFolder);
+		responseData[file.fieldname] =  await fileUploader.uploadFile(file,responseObject.fileFolder)
 	}))
-	responseObject.response = Buffer.from(JSON.stringify(responseData)).toString('base64');
+	responseObject.response = Buffer.from(JSON.stringify(responseData)).toString('base64')
 	await Response.create(responseObject)
 	res.status(200).json({
-		message : "Form Response have been saved"
+		message : 'Form Response have been saved'
 	})
 })
 
 module.exports.getResponsesofForms = catchAsync(async(req,res,next)=>{
-	let form = await Form.findById(req.params.id);
+	let form = await Form.findById(req.params.id)
 	let responses = await Response.find({
 		formID : req.params.id
 	})
 	if(responses.length  == 0 && !form.createdBy.equals(req.user._id))
-	res.status(204).json({
-		message : "There are no responses"
-	});
+		res.status(204).json({
+			message : 'There are no responses'
+		})
 	else{
-	let responsesArr =await Promise.all(responses.map(async response => {
-		return await JSON.parse(Buffer.from(response.response, 'base64').toString('ascii'))
-	}))
-	res.xls('responses.xlsx',responsesArr)
+		let responsesArr =await Promise.all(responses.map(async response => {
+			return await JSON.parse(Buffer.from(response.response, 'base64').toString('ascii'))
+		}))
+		res.xls('responses.xlsx',responsesArr)
 	}
 })

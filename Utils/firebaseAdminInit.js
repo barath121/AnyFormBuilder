@@ -3,7 +3,7 @@ const path = require('path')
 const util = require('util')
 const { format } = util
 const { Storage } = Cloud
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid')
 
 let serviceKey = path.join(__dirname, './Firebase/keys.json')
 let storage = new Storage({
@@ -16,9 +16,9 @@ let fburl = process.env.FirebaseURL
 
 module.exports.uploadFile = (file,imageid) => new Promise((resolve, reject) => {
 	const { originalname, buffer ,fieldname} = file
-	let fileType = originalname.split('.');
-	fileType = "." + fileType[fileType.length-1];
-	const blob = bucket.file(imageid+'/'+fieldname+'/'+uuidv4() + fileType);
+	let fileType = originalname.split('.')
+	fileType = '.' + fileType[fileType.length-1]
+	const blob = bucket.file(imageid+'/'+fieldname+'/'+uuidv4() + fileType)
 	const blobStream = blob.createWriteStream({
 		resumable: false
 	})

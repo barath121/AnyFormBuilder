@@ -4,16 +4,16 @@ const passport = require('passport')
 const jwt = require('jsonwebtoken')
 const catchAsync = require('./../Utils/catchAsync')
 const mailSender = require('./../Utils/mailSender')
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid')
 
 module.exports.register = catchAsync(async(req,res,next) =>{
 	let user = req.body
 	if(user.password)
-	user.password = await bcrypt.hash(req.body.password,parseInt(process.env.Salt))
-	user.verificationToken = uuidv4();
+		user.password = await bcrypt.hash(req.body.password,parseInt(process.env.Salt))
+	user.verificationToken = uuidv4()
 	user.deleteIfNotVerifiedBy = new Date(new Date().getTime() + 1*60000)
 	await User.create(user)
-	await mailSender("Verify your account",user.email,`Please open this link to verify your account ${process.env.ClientURL + "/verifyuser/" + user.verificationToken} .This Link will expire in 5 mins.`);
+	await mailSender('Verify your account',user.email,`Please open this link to verify your account ${process.env.ClientURL + '/verifyuser/' + user.verificationToken} .This Link will expire in 5 mins.`)
 	res.status(201).json({
 		message : 'User Created Sucessfully',
 	})
@@ -24,8 +24,8 @@ module.exports.verifyUser = catchAsync(async(req,res,next)=>{
 	})
 	if(user){
 		await User.findByIdAndUpdate(user._id,{
-			verificationToken : "",
-			deleteIfNotVerifiedBy : "",
+			verificationToken : '',
+			deleteIfNotVerifiedBy : '',
 			isVerified : true
 		})
 		res.status(200).json({
@@ -56,43 +56,43 @@ module.exports.login = catchAsync(async(req, res, next) => {
 	})(req, res, next)
 })
 module.exports.forgotPassword = catchAsync(async(req,res,next)=>{
-	let email = req.body.email;
-	let user = await User.findOne({email : email});
+	let email = req.body.email
+	let user = await User.findOne({email : email})
 	if(user){
 		let token = uuidv4()
 		await User.findByIdAndUpdate(user.id,{
 			forgotPasswordToken : token
 		})
-		await mailSender("Reset Your Password",email,`Please Open This Link to Reset Your Password ${process.env.ClientURL + "/resetpassword/" + token}`);
+		await mailSender('Reset Your Password',email,`Please Open This Link to Reset Your Password ${process.env.ClientURL + '/resetpassword/' + token}`)
 		res.status(200).json({
-			message : "Please check your email to reset password"
+			message : 'Please check your email to reset password'
 		})
 	}else{
 		res.status(304).json({
-			message : "Please Enter a Valid Email"
+			message : 'Please Enter a Valid Email'
 		})
 	}
 })
 module.exports.resetPasswordFromForgotPassword = catchAsync(async(req,res,next)=>{
-	let {token,password} = req.body;
-	password = await bcrypt.hash(req.body.password,parseInt(process.env.Salt));
-	let user = await User.findOne({forgotPasswordToken : token});
+	let {token,password} = req.body
+	password = await bcrypt.hash(req.body.password,parseInt(process.env.Salt))
+	let user = await User.findOne({forgotPasswordToken : token})
 	if(user){
 		await User.findByIdAndUpdate(user.id,{
-			forgotPasswordToken : "",
+			forgotPasswordToken : '',
 			password : password
 		})
 		res.status(200).json({
-			message : "Password Has Been Changed"
+			message : 'Password Has Been Changed'
 		})
 	}else{
 		res.status(304).json({
-			message : "Your Token is Invalid.Please reset Your Password again"
+			message : 'Your Token is Invalid.Please reset Your Password again'
 		})
 	}
 })
 module.exports.isTokenValid = (req,res,next) =>{
 	res.status(200).json({
-		message : "The token is valid"
+		message : 'The token is valid'
 	})
 }
