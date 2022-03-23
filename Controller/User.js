@@ -19,7 +19,6 @@ module.exports.register = catchAsync(async(req,res,next) =>{
 	})
 })
 module.exports.verifyUser = catchAsync(async(req,res,next)=>{
-	console.log(req.params.id)
 	let user = await User.findOne({
 		verificationToken : req.params.id
 	})

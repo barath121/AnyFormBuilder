@@ -29,7 +29,6 @@ module.exports.uploadFile = (file,imageid) => new Promise((resolve, reject) => {
 		resolve(publicUrl)
 	})
 		.on('error', (err) => {
-			console.log(err)
 			reject('Unable to upload image, something went wrong')
 		})
 		.end(buffer)

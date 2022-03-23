@@ -16,11 +16,9 @@ const sendEmail = (subject, email, message) => new Promise((resolve, reject) => 
       };
       transporter.sendMail(mailOptions)
       .then(mail=>{
-        console.log(mail);
         resolve(mail);
       })
       .catch(err=>{
-        console.log(err)
         reject("Could Not Send Email");
       })
 });

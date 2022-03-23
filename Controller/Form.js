@@ -92,7 +92,6 @@ module.exports.getAllUserForms = catchAsync(async(req,res,next)=>{
 	let userForms = await Form.aggregate(
 			aggregationSteps
 	)
-	console.log(userForms)
 	if(userForms.length)
 	res.status(200).json({
 		message: 'The User Forms are',
@@ -107,7 +106,7 @@ module.exports.getAllUserForms = catchAsync(async(req,res,next)=>{
 module.exports.getFormPages = catchAsync(async(req,res,next) =>{
 	let formID = req.params.id;
 	let formData = await Form.findById(formID).select("title savedPages");
-	if(formData){
+	if(formData&&formData.createdBy.equals(req.user._id)){
 		res.status(200).json({
 			message: 'The Form Pages are',
 			formData
@@ -121,7 +120,7 @@ module.exports.getFormPages = catchAsync(async(req,res,next) =>{
 module.exports.getPublishedPages = catchAsync(async(req,res,next) =>{
 	let formID = req.params.id;
 	let formData = await Form.findById(formID).select("title publishedPages");
-	if(formData){
+	if(formData&&formData.createdBy.equals(req.user._id)){
 		res.status(200).json({
 			message: 'The Form Pages are',
 			formData
@@ -150,10 +149,11 @@ module.exports.saveFormResponse = catchAsync(async(req,res,next)=>{
 })
 
 module.exports.getResponsesofForms = catchAsync(async(req,res,next)=>{
+	let form = await Form.findById(req.params.id);
 	let responses = await Response.find({
 		formID : req.params.id
 	})
-	if(responses.length  == 0)
+	if(responses.length  == 0 && !form.createdBy.equals(req.user._id))
 	res.status(204).json({
 		message : "There are no responses"
 	});
