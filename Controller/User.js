@@ -13,7 +13,6 @@ module.exports.register = catchAsync(async(req,res,next) =>{
 	user.verificationToken = uuidv4();
 	user.deleteIfNotVerifiedBy = new Date(new Date().getTime() + 1*60000)
 	await User.create(user)
-	console.log(`Please open this link to verify your account ${process.env.ClientURL + "/verifyuser/" + user.verificationToken} .This Link will expire in 5 mins.`)
 	await mailSender("Verify your account",user.email,`Please open this link to verify your account ${process.env.ClientURL + "/verifyuser/" + user.verificationToken} .This Link will expire in 5 mins.`);
 	res.status(201).json({
 		message : 'User Created Sucessfully',
