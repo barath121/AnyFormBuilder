@@ -18,9 +18,6 @@ const userSchema = mongoose.Schema({
 		type : String,
 		required : true
 	},
-	profilePic : {
-		type : String
-	},
 	forgotPasswordToken :{
 		type :String
 	},
