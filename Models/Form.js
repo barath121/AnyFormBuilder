@@ -9,7 +9,7 @@ const formSchema = mongoose.Schema({
 		{
 			fieldName :{
 				type : String,
-				required : true
+				trim : true
 			},
 			pageType :{
 				type : String,
@@ -18,7 +18,6 @@ const formSchema = mongoose.Schema({
 			},
 			question : {
 				type : String,
-				required : true,
 				trim : function(){return(this.pageType != 'Statement')}
 			},
 			choices : {
