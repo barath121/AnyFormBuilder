@@ -13,7 +13,7 @@ module.exports.register = catchAsync(async(req,res,next) =>{
 	user.verificationToken = uuidv4()
 	user.deleteIfNotVerifiedBy = new Date(new Date().getTime() + 1*60000)
 	await User.create(user)
-	await mailSender('Verify your account',user.email,`Please open this link to verify your account ${process.env.ClientURL + '/verifyuser/' + user.verificationToken} .This Link will expire in 5 mins.`)
+	await mailSender('Verify your account',user.email,`Hello ${user.username} Thanks For Registering,Please open this link to verify your account ${process.env.ClientURL + '/verifyuser/' + user.verificationToken} .This Link will expire in 5 mins.`)
 	res.status(201).json({
 		message : 'User Created Sucessfully',
 	})
@@ -63,7 +63,7 @@ module.exports.forgotPassword = catchAsync(async(req,res,next)=>{
 		await User.findByIdAndUpdate(user.id,{
 			forgotPasswordToken : token
 		})
-		await mailSender('Reset Your Password',email,`Please Open This Link to Reset Your Password ${process.env.ClientURL + '/resetpassword/' + token}`)
+		await mailSender('Reset Your Password',email,`Hello ${user.username} Please Open This Link to Reset Your Password ${process.env.ClientURL + '/resetpassword/' + token}`)
 		res.status(200).json({
 			message : 'Please check your email to reset password'
 		})
