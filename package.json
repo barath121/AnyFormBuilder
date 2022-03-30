@@ -33,7 +33,7 @@
     "dev": "nodemon server.js",
     "lint": "eslint .  --ext .js",
     "lint-fix": "eslint --fix .  --ext .js",
-    "prod" : "export NODE_EVN=\"prod\" &&pm2 start server.js"
+    "prod" : "export NODE_ENV=\"prod\" && pm2 start server.js"
   },
   "repository": {
     "type": "git",
