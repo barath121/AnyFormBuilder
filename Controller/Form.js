@@ -161,6 +161,14 @@ module.exports.getResponsesofForms = catchAsync(async(req,res,next)=>{
 		let responsesArr =await Promise.all(responses.map(async response => {
 			return await JSON.parse(Buffer.from(response.response, 'base64').toString('ascii'))
 		}))
+		let tempObj = {}
+		await Promise.all(responsesArr.map(async response=>{
+			await Promise.all(Object.keys(response).map(el=>{
+				tempObj[el] = ""
+			}))	
+		}))
+		responsesArr.push(tempObj);
+		responsesArr = [tempObj,...responsesArr]
 		res.xls('responses.xlsx',responsesArr)
 	}
 })
