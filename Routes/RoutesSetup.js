@@ -1,6 +1,8 @@
 const UserRoutes = require('./User.js')
 const FormRoutes = require('./Form.js')
 const ErrorHandler = require('./../Utils/ErrorHandler')
+const express = require('express')
+
 const wwwRedirect= (req, res, next) =>{
 	if (req.headers.host.slice(0, 4) === 'www.') {
 		var newHost = req.headers.host.slice(4)
@@ -10,15 +12,19 @@ const wwwRedirect= (req, res, next) =>{
 }
 const Routesinit = (app) => {
 	/*Make Request Body Avaliable to Frontend */
-	app.use((req, res, next) => {
+	const apiRouter = express.Router()
+	
+	apiRouter.use((req, res, next) => {
 		res.locals.req = req
 		next()
 	})
 	//Redirect to Non WWW website if Starts with WWW
-	app.use(wwwRedirect)
-	app.use('/user',UserRoutes)
-	app.use('/form',FormRoutes)
-	app.use(ErrorHandler.PageNotFoundHandler)
-	app.use(ErrorHandler.ErrorHandler)
+	apiRouter.use(wwwRedirect)
+	apiRouter.use('/user',UserRoutes)
+	apiRouter.use('/form',FormRoutes)
+	apiRouter.use(ErrorHandler.PageNotFoundHandler)
+	apiRouter.use(ErrorHandler.ErrorHandler)
+
+	app.use('/api',apiRouter)
 }
 module.exports = Routesinit

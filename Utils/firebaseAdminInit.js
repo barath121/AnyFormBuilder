@@ -11,7 +11,7 @@ let storage = new Storage({
 	projectId: process.env.FBProjectId,
 })
 let gc = storage
-let bucket = gc.bucket(process.env.FBStorageBucket)
+let bucket = gc.bucket(process.env.BUCKETNAME)
 let fburl = process.env.FirebaseURL
 
 module.exports.uploadFile = (file,imageid) => new Promise((resolve, reject) => {

@@ -25,7 +25,7 @@ const authenticateUser = (username, password, done) => {
 passport.use('local',new LocalStategy(authenticateUser))
 passport.use(new JwtStrategy({
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-	secretOrKey: process.env.jwtKey
+	secretOrKey: process.env.JWTKEY
 },
 (jwtPayload, done) => {
 	return User.findById(jwtPayload.id)
